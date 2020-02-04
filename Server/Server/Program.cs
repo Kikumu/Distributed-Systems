@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Sockets;
 using System.Net;
+using System.Text;
 
 namespace Server
 {
@@ -35,25 +36,59 @@ namespace Server
         }
         class Decryptor
         {
+            public byte[] string_to_ascii(string Message)  //just takes string and converts to ascii
+            {
+                ASCIIEncoding ascii = new ASCIIEncoding();
+                Byte[] encodedBytes = ascii.GetBytes(Message);
+
+                return encodedBytes;
+            }
+            public string encrypted_ascii_to_string(Byte []bytes)
+            {
+                string asciiString = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
+                Console.WriteLine(asciiString);
+                return asciiString;
+            }
             public void decrypt_client(Socket socket)
             {
                 NetworkStream server_stream;
                 server_stream = new NetworkStream(socket);
-                try
-                {
-                    Console.WriteLine("Connection to client Established.");
-                    StreamWriter sw = new StreamWriter(server_stream);
-                    StreamReader sr = new StreamReader(server_stream);
-                    string line;
-                    line = sr.ReadLine(); 
-                    Console.WriteLine("Response: " + line);
-                    sw.WriteLine("Received");
-                    sw.Flush();
+                Console.WriteLine("Connection to client Established.");
+                while (true) {
+                    try
+                    {
+                        //int encryption_key = 0;
+                        StreamWriter sw = new StreamWriter(server_stream);
+                        StreamReader sr = new StreamReader(server_stream);
+                        string line;
+                        line = sr.ReadLine();
+                        Byte[] ascii_bytes = string_to_ascii(line);
+                        //Console.WriteLine("Response: ");
+                        //foreach (Byte b in ascii_bytes)
+                        //{
+                        //    Console.Write("[{0}]", (b + 2));
+                        //}
+                        sw.WriteLine("Received");
+                        sw.WriteLine("Encrypted words: ");
+                        foreach (Byte b in ascii_bytes)
+                        {
+                            sw.Write("[{0}]", (b + 2));
                         }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Unhandled exception: " + ex);
+                        sw.Flush();
+                        if(line == "decrypt")
+                        {
+                           sw.WriteLine("Decrypting...");
+                           line =  encrypted_ascii_to_string(ascii_bytes);
+                           sw.WriteLine(line);
+                           sw.Flush();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Unhandled exception: " + ex);
+                    }
                 }
+               
             }
         }
 

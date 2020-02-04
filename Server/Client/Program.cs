@@ -38,12 +38,22 @@ namespace ConsoleApp1
                 StreamWriter sw = new StreamWriter(client.GetStream());
                 StreamReader sr = new StreamReader(client.GetStream());
                 Console.WriteLine("Connected to server");
-                Console.WriteLine("Please enter message: ");
-                message = Console.ReadLine();
-                sw.WriteLine(message);
-                sw.Flush();
-                string line = sr.ReadLine();
-                Console.WriteLine("Server response: " + line);
+                Console.WriteLine("To stop, enter 'no' when prompted to enter message");
+                string exit = "y";
+                while(exit == "y")
+                {
+                    Console.WriteLine("Please enter message: ");
+                    message = Console.ReadLine();
+                    sw.WriteLine(message);
+                    sw.Flush();
+                    string line = sr.ReadLine();
+                    Console.WriteLine("Server response: " + line);
+                    if (exit == "no")
+                    {
+                        exit = "no";
+                    }
+                }
+               
             }
             catch (Exception ex)
             {
