@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
-using Test;
+
 
 namespace Client
 {
@@ -21,10 +21,14 @@ namespace Client
             InitializeComponent();
         }
 
+        //Private Test server_translate = new Test;
         private void button1_Click(object sender, EventArgs e)
         {
             textBox1.Text = textBox1.Text.ToString();
-            MessageBox.Show(textBox1.Text.ToString());
+            //Test.translator(textBox1.Text.ToString());
+            //MessageBox.Show(textBox1.Text.ToString());
+            //public Test test = new Test();
+
         }
     }
 }
