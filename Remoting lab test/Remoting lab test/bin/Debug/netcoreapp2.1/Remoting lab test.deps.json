@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.1",
+    "signature": "432eeaf05617a9a928c05f6b9fefcf8eced9008d"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.1": {
+      "Remoting lab test/1.0.0": {
+        "dependencies": {
+          "System.Reactive.Runtime.Remoting": "4.3.2"
+        },
+        "runtime": {
+          "Remoting lab test.dll": {}
+        }
+      },
+      "System.Reactive.Runtime.Remoting/4.3.2": {
+        "runtime": {
+          "lib/net46/System.Reactive.Runtime.Remoting.dll": {
+            "assemblyVersion": "3.0.3000.0",
+            "fileVersion": "3.0.3000.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Remoting lab test/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Reactive.Runtime.Remoting/4.3.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pF25uiKMVoVdB+GUsRDnGBTxrPX6wfihF28zJ61Pnq9Nkzk7D1+24ix0D4f/kaUTu94AkjviBNBLrg5nmokXyA==",
+      "path": "system.reactive.runtime.remoting/4.3.2",
+      "hashPath": "system.reactive.runtime.remoting.4.3.2.nupkg.sha512"
+    }
+  }
+}

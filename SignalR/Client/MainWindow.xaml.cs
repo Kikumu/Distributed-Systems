@@ -36,7 +36,7 @@ namespace Client
         {
             InitializeComponent();
             HubConnection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:44363/ChatHub")
+                .WithUrl("https://192.168.0.152:5000/ChatHub")
                 .Build();
             HubConnection.On<string, string>("GetMessage",
                 new Action<string, string>((username, message) =>
