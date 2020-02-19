@@ -16,10 +16,9 @@ namespace Client
         {
             InitializeComponent();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            ServiceReference1.TranslationServiceClient serviceClient = new ServiceReference1.TranslationServiceClient();
+            part3.TranslationServiceClient serviceClient = new part3.TranslationServiceClient();
             textBox2.Text = serviceClient.Translate(textBox1.Text);
         }
     }

@@ -3,3 +3,4 @@ C:\Users\scowt\Desktop\Semester 2\Distributed Systems test\Lab4\bin\Debug\Lab4.d
 C:\Users\scowt\Desktop\Semester 2\Distributed Systems test\Lab4\bin\Debug\Lab4.pdb
 C:\Users\scowt\Desktop\Semester 2\Distributed Systems test\Lab4\obj\Debug\Lab4.dll
 C:\Users\scowt\Desktop\Semester 2\Distributed Systems test\Lab4\obj\Debug\Lab4.pdb
+C:\Users\scowt\Desktop\Semester 2\Distributed Systems test\Lab4\obj\Debug\Lab4.csprojAssemblyReference.cache
