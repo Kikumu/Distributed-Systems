@@ -18,7 +18,7 @@ namespace Client
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            part3.TranslationServiceClient serviceClient = new part3.TranslationServiceClient();
+            TranslationReference.TranslationServiceClient serviceClient = new TranslationReference.TranslationServiceClient();
             textBox2.Text = serviceClient.Translate(textBox1.Text);
         }
     }

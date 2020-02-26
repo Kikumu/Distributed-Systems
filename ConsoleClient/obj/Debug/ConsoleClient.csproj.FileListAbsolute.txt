@@ -1,0 +1,6 @@
+C:\Users\scowt\Desktop\Semester2\Distributed Systems test\ConsoleClient\bin\Debug\ConsoleClient.exe.config
+C:\Users\scowt\Desktop\Semester2\Distributed Systems test\ConsoleClient\bin\Debug\ConsoleClient.exe
+C:\Users\scowt\Desktop\Semester2\Distributed Systems test\ConsoleClient\bin\Debug\ConsoleClient.pdb
+C:\Users\scowt\Desktop\Semester2\Distributed Systems test\ConsoleClient\obj\Debug\ConsoleClient.csprojAssemblyReference.cache
+C:\Users\scowt\Desktop\Semester2\Distributed Systems test\ConsoleClient\obj\Debug\ConsoleClient.exe
+C:\Users\scowt\Desktop\Semester2\Distributed Systems test\ConsoleClient\obj\Debug\ConsoleClient.pdb

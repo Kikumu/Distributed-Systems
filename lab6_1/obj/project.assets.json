@@ -6004,11 +6004,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\scowt\\Desktop\\Semester 2\\Distributed Systems test\\lab6_1\\lab6_1.csproj",
+      "projectUniqueName": "C:\\Users\\scowt\\Desktop\\Semester2\\Distributed Systems test\\lab6_1\\lab6_1.csproj",
       "projectName": "lab6_1",
-      "projectPath": "C:\\Users\\scowt\\Desktop\\Semester 2\\Distributed Systems test\\lab6_1\\lab6_1.csproj",
+      "projectPath": "C:\\Users\\scowt\\Desktop\\Semester2\\Distributed Systems test\\lab6_1\\lab6_1.csproj",
       "packagesPath": "C:\\Users\\scowt\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\scowt\\Desktop\\Semester 2\\Distributed Systems test\\lab6_1\\obj\\",
+      "outputPath": "C:\\Users\\scowt\\Desktop\\Semester2\\Distributed Systems test\\lab6_1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
