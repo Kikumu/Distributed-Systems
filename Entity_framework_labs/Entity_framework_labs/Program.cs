@@ -32,12 +32,27 @@ namespace Entity_framework_labs
                     ctx.Addresses.Add(adr);
                     ctx.People.Add(prsn);
                     ctx.SaveChanges();
+
+                    //Console.WriteLine("Done");
+                    //var results = ctx.
                 }
             }
             catch(Exception ex) {
                 Console.WriteLine(ex);
             }
-         
+            Console.WriteLine("Done");
+            //var results = ctx.
+
+            //-------------------LAZY LOADING?..-----------------//
+            var cntxt = new Context();
+            var dept = cntxt.People;
+            //var people1 = cntxt.People;
+            foreach (Person people in dept)
+            {
+                string str = "";
+                str = people.First_Name;
+                Console.WriteLine(str);
+            }
         }
     }
 }

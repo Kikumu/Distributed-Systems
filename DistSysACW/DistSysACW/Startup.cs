@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +9,19 @@ using Microsoft.Extensions.Hosting;
 namespace DistSysACW
 {
     public class Startup
+
     {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+        public static void Register(HttpConfiguration config)
+        {
+            // Web API routes
+            config.MapHttpAttributeRoutes();
 
+            // Other Web API configuration not shown.
+        }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.

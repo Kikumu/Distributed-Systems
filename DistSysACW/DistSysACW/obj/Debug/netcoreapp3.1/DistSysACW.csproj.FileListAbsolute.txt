@@ -1,5 +1,4 @@
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp3.1\DistSysACW.csprojAssemblyReference.cache
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp3.1\DistSysACW.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp3.1\DistSysACW.AssemblyInfoInputs.cache
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp3.1\DistSysACW.AssemblyInfo.cs
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp3.1\appsettings.Development.json
@@ -137,3 +136,7 @@ C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp3.1\System.Web.Http.dll
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp3.1\DistSysACW.MvcApplicationPartsAssemblyInfo.cache

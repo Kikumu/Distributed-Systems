@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace lab6_1.Controllers
 {
@@ -19,12 +20,25 @@ namespace lab6_1.Controllers
         }
 
         // GET: api/Translator/5
-        [HttpGet("{id:int}", Name = "Get")]
+        [HttpGet]
         [ActionName("GetInt")]
-        public string Get(int id)
+        public  string Get([FromQuery]string name)
         {
-            id += 100;
-            return "value "+id;
+            //string json_string = "{/$name/}";
+           string json_string = "{/" + name + "/}";
+            //name get_name = new name()
+            //{
+            //    data = name
+            //};
+            return JsonConvert.SerializeObject(json_string);
+           // return json_string;
+           //use client to just transform the data into readable format by server
+        }
+        [HttpPost]
+        [ActionName("GetInt")]
+        public string Get_p([FromBody]string data)   //accepts a json object(need to accept a json string)//string json done (used dixons example)
+        {
+            return data;
         }
 
         [HttpGet]

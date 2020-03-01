@@ -11,9 +11,11 @@ namespace DistSysACW.Controllers
     [ApiController]
     public class UserController : BaseController
     {
+        public static string post_user_temp = "";
 
-        public UserController(Models.UserContext context) : base(context) { 
-        
+        public UserController(Models.UserContext context) : base(context)
+        {
+
         }
         // GET: api/User
         [HttpGet]
@@ -23,17 +25,24 @@ namespace DistSysACW.Controllers
         }
 
         // GET: api/User/5
-        [HttpGet(Name = "New")]
+        [HttpGet]
+        [ActionName("User")]
         public string New([FromQuery]string name) //gets name value from get request and checks database if user exists
         {
             name = Convert.ToString(search_username(name));
+            //convert to JSON string so that client can accept
             return name;
         }
 
         // POST: api/User
         [HttpPost]
+        [ActionName("User")]
         public void Post([FromBody] string value)
         {
+            //need to "clean" value due to parenthesis and stuff in the JSON string
+            //assuming its "cleaned"
+            post_user_temp = value;
+
         }
 
         // PUT: api/User/5
