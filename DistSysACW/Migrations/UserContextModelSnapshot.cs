@@ -42,6 +42,8 @@ namespace DistSysACW.Migrations
 
                     b.Property<int?>("log_dataLogID");
 
+                    b.Property<string>("role");
+
                     b.Property<string>("user_name");
 
                     b.HasKey("api_key");

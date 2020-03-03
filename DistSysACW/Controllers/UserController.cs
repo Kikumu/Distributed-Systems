@@ -48,7 +48,24 @@ namespace DistSysACW.Controllers
             return temp;
 
         }
-
+        [HttpPost]
+        [ActionName("ChangeRole")]
+        //----------------------------------PARTIALLY IMPLIMENTED(Change role)-------------------------------------//
+        public string change_role([FromQuery]string name,[FromHeader]int id)
+        {
+            string temp_ = "";
+            temp_ = update_role_to_admin(name);
+            return temp_;
+        }
+        [HttpDelete]
+        [ActionName("DeleteUser")]
+        //-------------------------------PARTIALLY IMPLEMENTED(delete user(LOL its supposed to be a delete request))-----------------------------------------//
+        public string delete_user_data([FromQuery]string name,[FromHeader]int id)
+        {
+            string temp = "";
+            temp = delete_user(name);
+            return temp;
+        }
         // PUT: api/User/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)

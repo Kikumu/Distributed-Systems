@@ -17,6 +17,8 @@ namespace DistSysACW.Models
         public string user_name { get; set; }
         public Log log_data { get; set; }
 
+        public string role { get; set; }
+
         //public int log_data { get; set; }
         //should be on same table...will fix this later
     }
