@@ -23,46 +23,116 @@ namespace DistSysACW.Controllers
             {
                 string str = name;
                 if (str == user.user_name)
-                    _bool = true + "True - User Does Exist! Did you mean to do a POST to create a new user?";
+                    _bool = "True - User Does Exist! Did you mean to do a POST to create a new user?";
                 else
-                    _bool = false + "False - User Does Not Exist! Did you mean to do a POST to create a new user?";
+                    _bool = "False - User Does Not Exist! Did you mean to do a POST to create a new user?";
             }
+            if (_bool == "")
+            {
+                _bool = "False - User Does Not Exist! Did you mean to do a POST to create a new user?";
+            }
+           
             return _bool;
         }
 //-------------------------------------TASK 4 ADD USERNAME TO DATABASE--------------------------------------------//
-        public BaseController(Models.UserContext context)
+
+        public string add_user(string name)
         {
-           
-           _context = context;
-            try{
-                Random rnd = new Random();
-                int log_val = rnd.Next(1, 1000);
-               
-                using (_context = new Models.UserContext())
+            string rslt = "";
+            if (name == "")
+                rslt = "Oops. Make sure your body contains a string with your username and your Content-Type is Content-Type:application/json";
+            var _names = _context.Users;
+            foreach (Models.User user in _names)
+            {
+                string str = name;
+                if (str == user.user_name)
+                    rslt = "Oops. This username is in use. Please try again with a new username";
+            }
+            Random rnd = new Random();
+            int log_val = rnd.Next(1234, 5000);
+            int api_val = rnd.Next(1234, 5000);
+
+            if (rslt == "")
+            {
+                using (Models.UserContext _context = new Models.UserContext())
                 {
                     Models.Log logs = new Models.Log()
                     {
-                        //LogID = (randomly generated but keep checking against db if theres a duplicate)
+                        //LogID = log_val,
                         Log_string = "First Signup to system", //depending on what user did generate str
-                        LogDateTime = new DateTime(2010,2,2)
+                        LogDateTime = new DateTime(2010, 2, 2)
                     };
                     //for adding.....
                     Models.User user = new Models.User()
                     {
-                       // user_name = post_user_temp, //grap from post func
+                        user_name = name, //grap from post func
                         log_data = logs,
-                        api_key = 2
+                        role = "user"
+                
+                       // api_key = api_val
                     };
                     _context.Users.Add(user);
                     _context.logs.Add(logs);
                     _context.SaveChanges();
                 }
+                rslt = "Saved";
             }
-            catch(Exception ex)
-            {
-
-            }
-            
+            return rslt; 
         }
+
+        //------------------------------------UPDATING ROLE FUNCTION. WORKS BUT PARTIALLY IMPLIMENTED------------------------------------//
+        public string update_role(string name)
+        {
+            var _cntxt = new Models.UserContext();
+            var t_name = _cntxt.Users.Where(u => u.user_name ==name).First();
+            t_name.role = "Admin";
+            _cntxt.SaveChanges();
+            return "Changed";
+        }
+
+        //----------------------------------DELETE ROLE FUNCTION. WORKS BUT PARTIALLY IMPLEMENTED------------------------------------------------------------------//
+        public void delete_user(string name)
+        {
+            // db.Database.Log = Console.WriteLine;
+            var _cntxt = new Models.UserContext();
+            var t_name = _cntxt.Users.Where(u => u.user_name == name).First();
+            _cntxt.Users.Remove(t_name);
+            _cntxt.SaveChanges();
+        }
+
+        //public BaseController(Models.UserContext context)
+        //{
+           
+        //   _context = context;
+        //    try{
+        //        //Random rnd = new Random();
+        //        //int log_val = rnd.Next(1, 1000);
+               
+        //        //using (_context = new Models.UserContext())
+        //        //{
+        //        //    Models.Log logs = new Models.Log()
+        //        //    {
+        //        //        //LogID = (randomly generated but keep checking against db if theres a duplicate)
+        //        //        Log_string = "First Signup to system", //depending on what user did generate str
+        //        //        LogDateTime = new DateTime(2010,2,2)
+        //        //    };
+        //        //    //for adding.....
+        //        //    Models.User user = new Models.User()
+        //        //    {
+        //        //       // user_name = post_user_temp, //grap from post func
+        //        //        log_data = logs,
+        //        //        api_key = 2
+        //        //    };
+        //        //    _context.Users.Add(user);
+        //        //    _context.logs.Add(logs);
+        //            _context.SaveChanges();
+        //        //}
+        //    }
+        //    catch(Exception ex)
+        //    {
+
+        //    }
+            
+        //}
     }
 }

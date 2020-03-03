@@ -21,7 +21,7 @@ namespace DistSysACW.Models
         {
             optionsBuilder.UseSqlServer
                 (
-                @"Server=(localdb)\\mssqllocaldb;Database=DistSysACW;",
+                @"Server=(localdb)\mssqllocaldb;Database=DistSysACW;",
                 options => options.EnableRetryOnFailure());
             base.OnConfiguring(optionsBuilder);
         }

@@ -26,7 +26,7 @@ namespace DistSysACW.Controllers
 
         // GET: api/User/5
         [HttpGet]
-        [ActionName("User")]
+        [ActionName("new")]
         public string New([FromQuery]string name) //gets name value from get request and checks database if user exists
         {
             name = Convert.ToString(search_username(name));
@@ -36,13 +36,26 @@ namespace DistSysACW.Controllers
 
         // POST: api/User
         [HttpPost]
-        [ActionName("User")]
-        public void Post([FromBody] string value)
+        [ActionName("new")]
+        public string Post([FromBody] string value)
         {
+            //string temp_1 = value;
+            string temp = "";
+            temp = Convert.ToString(add_user(value));
             //need to "clean" value due to parenthesis and stuff in the JSON string
             //assuming its "cleaned"
-            post_user_temp = value;
+            //post_user_temp = value;
+            return temp;
 
+        }
+        [HttpPost]
+        [ActionName("ChangeRole")]
+        //----------------------------------PARTIALLY IMPLIMENTED-------------------------------------//
+        public string change_role([FromQuery]string name)
+        {
+            string temp_ = "";
+            temp_ = update_role(name);
+            return temp_;
         }
 
         // PUT: api/User/5

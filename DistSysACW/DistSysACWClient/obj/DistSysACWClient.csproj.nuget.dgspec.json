@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\scowt\\Desktop\\Semester2\\DistributedACW\\DistSysACW\\DistSysACWClient\\DistSysACWClient.csproj": {}
+    "C:\\Users\\scowt\\Desktop\\Semester2\\DistributedACW\\DistSysACW - 1\\DistSysACWClient\\DistSysACWClient.csproj": {}
   },
   "projects": {
-    "C:\\Users\\scowt\\Desktop\\Semester2\\DistributedACW\\DistSysACW\\DistSysACWClient\\DistSysACWClient.csproj": {
+    "C:\\Users\\scowt\\Desktop\\Semester2\\DistributedACW\\DistSysACW - 1\\DistSysACWClient\\DistSysACWClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\scowt\\Desktop\\Semester2\\DistributedACW\\DistSysACW\\DistSysACWClient\\DistSysACWClient.csproj",
+        "projectUniqueName": "C:\\Users\\scowt\\Desktop\\Semester2\\DistributedACW\\DistSysACW - 1\\DistSysACWClient\\DistSysACWClient.csproj",
         "projectName": "DistSysACWClient",
-        "projectPath": "C:\\Users\\scowt\\Desktop\\Semester2\\DistributedACW\\DistSysACW\\DistSysACWClient\\DistSysACWClient.csproj",
+        "projectPath": "C:\\Users\\scowt\\Desktop\\Semester2\\DistributedACW\\DistSysACW - 1\\DistSysACWClient\\DistSysACWClient.csproj",
         "packagesPath": "C:\\Users\\scowt\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\scowt\\Desktop\\Semester2\\DistributedACW\\DistSysACW\\DistSysACWClient\\obj\\",
+        "outputPath": "C:\\Users\\scowt\\Desktop\\Semester2\\DistributedACW\\DistSysACW - 1\\DistSysACWClient\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -41,9 +41,9 @@
       "frameworks": {
         "netcoreapp2.2": {
           "dependencies": {
-            "Microsoft.EntityFrameworkCore.SqlServer": {
+            "EntityFramework": {
               "target": "Package",
-              "version": "[3.1.2, )"
+              "version": "[6.4.0, )"
             },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",

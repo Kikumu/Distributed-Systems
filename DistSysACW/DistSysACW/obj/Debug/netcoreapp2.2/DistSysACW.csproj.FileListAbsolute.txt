@@ -1,16 +1,16 @@
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.csprojAssemblyReference.cache
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.RazorAssemblyInfo.cache
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.RazorAssemblyInfo.cs
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.AssemblyInfoInputs.cache
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.AssemblyInfo.cs
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp2.2\appsettings.Development.json
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp2.2\appsettings.json
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp2.2\DistSysACW.deps.json
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp2.2\DistSysACW.runtimeconfig.json
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp2.2\DistSysACW.runtimeconfig.dev.json
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp2.2\DistSysACW.dll
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\bin\Debug\netcoreapp2.2\DistSysACW.pdb
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.RazorTargetAssemblyInfo.cache
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.dll
-C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.pdb
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\bin\Debug\netcoreapp2.2\DistSysACW.deps.json
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\bin\Debug\netcoreapp2.2\DistSysACW.runtimeconfig.json
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\bin\Debug\netcoreapp2.2\DistSysACW.runtimeconfig.dev.json
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\bin\Debug\netcoreapp2.2\DistSysACW.dll
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\bin\Debug\netcoreapp2.2\DistSysACW.pdb
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.csprojAssemblyReference.cache
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.RazorAssemblyInfo.cache
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.RazorAssemblyInfo.cs
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.AssemblyInfoInputs.cache
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.AssemblyInfo.cs
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.RazorTargetAssemblyInfo.cache
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.dll
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACW\obj\Debug\netcoreapp2.2\DistSysACW.pdb
