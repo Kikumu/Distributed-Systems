@@ -174,7 +174,6 @@ C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\bin\Debug\netco
 C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\obj\Debug\netcoreapp3.1\staticwebassets\lab6_1.StaticWebAssets.Manifest.cache
 C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\obj\Debug\netcoreapp3.1\staticwebassets\lab6_1.StaticWebAssets.xml
-C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\obj\Debug\netcoreapp3.1\lab6_1.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\obj\Debug\netcoreapp3.1\lab6_1.AssemblyInfoInputs.cache
 C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\obj\Debug\netcoreapp3.1\lab6_1.AssemblyInfo.cs
 C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\obj\Debug\netcoreapp3.1\lab6_1.RazorTargetAssemblyInfo.cache
@@ -182,3 +181,7 @@ C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\obj\Debug\netco
 C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\obj\Debug\netcoreapp3.1\lab6_1.dll
 C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\obj\Debug\netcoreapp3.1\lab6_1.pdb
 C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\obj\Debug\netcoreapp3.1\lab6_1.csprojAssemblyReference.cache
+C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\bin\Debug\netcoreapp3.1\System.Web.Http.dll
+C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\scowt\Desktop\Semester2\Distributed Systems test\lab6_1\obj\Debug\netcoreapp3.1\lab6_1.MvcApplicationPartsAssemblyInfo.cache

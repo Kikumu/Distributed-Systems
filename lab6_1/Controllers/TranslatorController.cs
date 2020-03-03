@@ -24,8 +24,9 @@ namespace lab6_1.Controllers
         [ActionName("GetInt")]
         public  string Get([FromQuery]string name)
         {
+          
             //string json_string = "{/$name/}";
-           string json_string = "{/" + name + "/}";
+            string json_string = "{/" + name + "/}";
             //name get_name = new name()
             //{
             //    data = name
@@ -38,9 +39,25 @@ namespace lab6_1.Controllers
         [ActionName("GetInt")]
         public string Get_p([FromBody]string data)   //accepts a json object(need to accept a json string)//string json done (used dixons example)
         {
+            //string response = "";
+            Filter.AuthFilter authFilter = new Filter.AuthFilter();
+            authFilter.httpResponse();
             return data;
         }
+        [HttpGet]
+        [ActionName("Response")]
+        public System.Net.Http.HttpResponseMessage httpResponse1()
+        {
+            //HttpRequest httpRequest = new HttpRequest();
+           // httpRequest.Headers.
+            var response = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            IEnumerable<string> m_oEnum = new List<string>() { "1", "2", "3" };
+            response.Headers.Add("Finally", m_oEnum);
+            return response;
+        }
 
+        
+       
         [HttpGet]
         public string Bin([FromQuery]string input)
         {
@@ -68,5 +85,10 @@ namespace lab6_1.Controllers
         public void Delete(int id)
         {
         }
+
+        //public async Task<BindingAddress> Get__()
+        //{
+        //    Request.Properties["Count"] = "123";
+        //}
     }
 }
