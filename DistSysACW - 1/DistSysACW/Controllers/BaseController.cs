@@ -43,18 +43,26 @@ namespace DistSysACW.Controllers
         public string search_username(string name)
         {
             string _bool = "";
+            string str = "";
             var _names = context.Users;
+            int exist = 0;
+            //I just wanna know if user exists or nah
             foreach(Models.User user in _names)
             {
-                string str = name;
+                str = name;
                 if (str == user.user_name)
-                    _bool = "True - User Does Exist! Did you mean to do a POST to create a new user?";
+                {
+                    exist += 1;
+                }   
                 else
+                {
                     _bool = "False - User Does Not Exist! Did you mean to do a POST to create a new user?";
+                }
+                   
             }
-            if (_bool == "")
+            if (exist > 0)
             {
-                _bool = "False - User Does Not Exist! Did you mean to do a POST to create a new user?";
+                _bool = "True - User Does Exist! Did you mean to do a POST to create a new user?";
             }
            
             return _bool;
@@ -125,13 +133,20 @@ namespace DistSysACW.Controllers
                         user_name = name, //grap from post func
                         log_data = logs,
                         role = "user"
-                        
-                       // api_key = api_val
                     };
                     rslt = Convert.ToString(user.api_key);
                     _context.Users.Add(user);
                     _context.logs.Add(logs);
                     _context.SaveChanges();
+
+                    foreach (Models.User user1 in _names)
+                    {
+                        //get stored api key
+                        string str = name;
+                        admin_cap_role.Add(user.role);
+                        if (name == user.user_name)
+                            rslt = user.api_key.ToString();
+                    }
                 }
                // rslt = "Saved";
             }

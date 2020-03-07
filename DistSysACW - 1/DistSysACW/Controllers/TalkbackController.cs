@@ -45,14 +45,5 @@ namespace DistSysACW.Controllers
             }
         }
         //----------------------------------------------TASK3(Basically scans your database and checks if user is available)------------------------//
-
-        //public IActionResult Get([FromQuery]int[] integers)
-        //{
-        //    #region TASK1
-        //    // TODO: 
-        //    // sort the integers into ascending order
-        //    // send the integers back as the api/talkback/sort response
-        //    #endregion
-        //}
     }
 }

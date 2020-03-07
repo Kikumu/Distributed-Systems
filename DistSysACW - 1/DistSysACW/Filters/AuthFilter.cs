@@ -6,11 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using System.Threading;
+using Microsoft.AspNetCore.Http;
 
 namespace DistSysACW.Filters
 {
     public class AuthFilter : AuthorizeAttribute, IAuthorizationFilter
     {
+       
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             try
@@ -19,15 +23,19 @@ namespace DistSysACW.Filters
               
                 if (authAttribute != null)
                 {
+                    //var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+                    //var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+                    //var role_ = identity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).SingleOrDefault();
+
                     string[] roles = authAttribute.Roles.Split(',');
                     foreach (string role in roles)
                     {
-                        if (context.HttpContext.User.IsInRole(role))
+                        if (context.HttpContext.User.IsInRole(role) )
                         {
-                            return;
+                             return;
                         }
                     }
-                    throw new UnauthorizedAccessException();
+                  throw new UnauthorizedAccessException();
                 }
             }
             catch(Exception ex)

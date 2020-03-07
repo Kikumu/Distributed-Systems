@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace DistSysACW.Controllers
 {
@@ -60,6 +61,7 @@ namespace DistSysACW.Controllers
                 this.Response.StatusCode = 403;
                 temp = ("Oops. This username is already in use. Please try again with a new username.");
             }
+           
             obtain_keys();
             return new ObjectResult(temp);
 
@@ -68,10 +70,15 @@ namespace DistSysACW.Controllers
         [ActionName("ChangeRole")]
         [Authorize(Roles = "Admin")]         //Works! Only admin can do this
         //---------------------------------- IMPLIMENTED(Change role)----------------------------------------------------------------------------------//
-        public ActionResult change_role([FromQuery]string name)
+        public ActionResult change_role([FromBody]string test)
         {
             string temp_ = "";
-            temp_ = update_role_to_admin(name);
+            string role = "";
+            string name = "";
+            if (role == "user")
+                temp_ = update_role_to_user(name);
+            else if(role =="Admin")
+                temp_ = update_role_to_admin(name);
             return new ObjectResult(temp_);
           
         }
