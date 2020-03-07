@@ -109,11 +109,29 @@ namespace DistSysACW.Controllers
         //------------------------------------UPDATING ROLE FUNCTION. WORKS BUT PARTIALLY IMPLIMENTED------------------------------------//
         public string update_role_to_admin(string name)
         {
-            var _cntxt = new Models.UserContext();
-            var t_name = _cntxt.Users.Where(u => u.user_name ==name).First();
-            t_name.role = "Admin";
-            _cntxt.SaveChanges();
-            return "Changed";
+            string rslt = "";
+            var _names = context.Users;
+            foreach (Models.User user in _names)
+            {
+                string str = name;
+                if (str == user.user_name)
+                    rslt = "Taken";
+            }
+
+            if (rslt != "")
+            {
+                var _cntxt = new Models.UserContext();
+                var t_name = _cntxt.Users.Where(u => u.user_name == name).First();
+                t_name.role = "Admin";
+                _cntxt.SaveChanges();
+                rslt = "Changed";
+            }
+            else
+            {
+                rslt = "Unavailable";
+            }
+            return rslt;
+           
         }
 
         public string update_role_to_user(string name)

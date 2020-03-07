@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DistSysACW.Controllers
 {
@@ -40,6 +41,7 @@ namespace DistSysACW.Controllers
         //------------------------------------------------------------ADD NEW USR------------------------------------------------------------------//
         [HttpPost]
         [ActionName("new")]
+        [Authorize(Roles = "Admin")]                                   //Works!!!!
         public ActionResult Post([FromBody] string value)
         {
             //string temp_1 = value;
@@ -65,13 +67,19 @@ namespace DistSysACW.Controllers
         }
         [HttpPost]
         [ActionName("ChangeRole")]
+        [Authorize(Roles = "Admin")]
         //----------------------------------PARTIALLY IMPLIMENTED(Change role)----------------------------------------------------------------------------------//
-        public string change_role([FromQuery]string name,[FromHeader]int id)
+        public ActionResult change_role([FromQuery]string name,[FromHeader]int apikey)
         {
             string temp_ = "";
             temp_ = update_role_to_admin(name);
-            return temp_;
+           // Filters.AuthFilter auth = new Filters.AuthFilter();
+          //  auth.
+            //if temp_ == "Unavailable"
+            return new ObjectResult(temp_);
+          
         }
+        
         [HttpDelete]
         [ActionName("DeleteUser")]
         //-------------------------------PARTIALLY IMPLEMENTED(delete user(LOL its supposed to be a delete request))-----------------------------------------//

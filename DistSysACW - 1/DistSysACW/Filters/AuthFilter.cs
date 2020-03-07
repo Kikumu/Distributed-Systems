@@ -11,12 +11,18 @@ namespace DistSysACW.Filters
 {
     public class AuthFilter : AuthorizeAttribute, IAuthorizationFilter
     {
+        //public enum Role
+        //{
+        //    Administrator = 1,
+        //    UserWithPrivileges = 2,
+        //    User = 3,
+        //}
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             try
             {
                 AuthorizeAttribute authAttribute = (AuthorizeAttribute)context.ActionDescriptor.EndpointMetadata.Where(e => e.GetType() == typeof(AuthorizeAttribute)).FirstOrDefault();
-
+              
                 if (authAttribute != null)
                 {
                     string[] roles = authAttribute.Roles.Split(',');
@@ -30,8 +36,9 @@ namespace DistSysACW.Filters
                     throw new UnauthorizedAccessException();
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                string val = ex.ToString();
                 context.HttpContext.Response.StatusCode = 401;
                 context.Result = new JsonResult("Unauthorized. Check ApiKey in Header is correct.");
             }
