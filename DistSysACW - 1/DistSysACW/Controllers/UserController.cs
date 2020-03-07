@@ -66,15 +66,12 @@ namespace DistSysACW.Controllers
         }
         [HttpPost]
         [ActionName("ChangeRole")]
-        [Authorize(Roles = "Admin")]  //Works! Only admin can do this
+        [Authorize(Roles = "Admin")]         //Works! Only admin can do this
         //---------------------------------- IMPLIMENTED(Change role)----------------------------------------------------------------------------------//
-        public ActionResult change_role([FromQuery]string name,[FromHeader]int apikey)
+        public ActionResult change_role([FromQuery]string name)
         {
             string temp_ = "";
             temp_ = update_role_to_admin(name);
-           // Filters.AuthFilter auth = new Filters.AuthFilter();
-          //  auth.
-            //if temp_ == "Unavailable"
             return new ObjectResult(temp_);
           
         }

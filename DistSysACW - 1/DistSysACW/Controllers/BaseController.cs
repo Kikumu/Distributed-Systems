@@ -63,6 +63,9 @@ namespace DistSysACW.Controllers
 
         public string add_user(string name)
         {
+            string admin_cap = "";                                                                      //if no one is in the database
+            List<string>admin_cap_role = new List<string>();                                            //stores all roles
+            string role_determiner = "";                                                                //will return "null" if no admin role found
             string rslt = "";
             if (name == "" || name == null)
                 rslt = "Empty";
@@ -70,14 +73,43 @@ namespace DistSysACW.Controllers
             foreach (Models.User user in _names)
             {
                 string str = name;
+                admin_cap = user.user_name;
+                admin_cap_role.Add(user.role);
                 if (str == user.user_name)
                     rslt = "Taken";
             }
-            Random rnd = new Random();
-            int log_val = rnd.Next(1234, 5000);
-            int api_val = rnd.Next(1234, 5000);
+            role_determiner = admin_cap_role.Find(x => x.Contains("Admin"));                            //will return "null" if no admin role found
+            //search admin cap role for admin
 
-            if (rslt == "")
+            if (admin_cap == "" || role_determiner == null)                                             //if there are no people in the database or all users in the database are signed in as users
+            {
+                using (Models.UserContext _context = new Models.UserContext())
+                {
+                    Models.Log logs = new Models.Log()
+                    {
+                        //LogID = log_val,
+                        Log_string = "First Signup to system", //depending on what user did generate str
+                        LogDateTime = new DateTime(2010, 2, 2)
+                    };
+                    //for adding.....
+                    Models.User user = new Models.User()
+                    {
+                        user_name = name, //grap from post func
+                        log_data = logs,
+                        role = "Admin"
+
+                        // api_key = api_val
+                    };
+                    rslt = Convert.ToString(user.api_key);
+                    _context.Users.Add(user);
+                    _context.logs.Add(logs);
+                    _context.SaveChanges();
+                }
+            }
+
+
+            //condition for user
+            if (rslt == "" && admin_cap!="")                                                             //if result is empty and there are already people in the database
             {
                 using (Models.UserContext _context = new Models.UserContext())
                 {
@@ -106,7 +138,7 @@ namespace DistSysACW.Controllers
             return rslt; 
         }
 
-        //------------------------------------UPDATING ROLE FUNCTION. WORKS BUT PARTIALLY IMPLIMENTED------------------------------------//
+        //------------------------------------UPDATING ROLE FUNCTION. WORKS------------------------------------//
         public string update_role_to_admin(string name)
         {
             string rslt = "";
@@ -131,8 +163,10 @@ namespace DistSysACW.Controllers
                 rslt = "Unavailable";
             }
             return rslt;
+            
            
         }
+        //------------------------------------------------UPDATE TO USER----------------------------------------------------//
 
         public string update_role_to_user(string name)
         {
@@ -143,7 +177,11 @@ namespace DistSysACW.Controllers
             return "Changed";
         }
 
+        //public string role_update(string name)
+        //{
+        //    var _cntxt = new Models.UserContext();
 
+        //}
 
         //----------------------------------DELETE ROLE FUNCTION. WORKS BUT PARTIALLY IMPLEMENTED------------------------------------------------------------------//
         public string delete_user(string name)
@@ -155,40 +193,5 @@ namespace DistSysACW.Controllers
             _cntxt.SaveChanges();
             return "deleted";
         }
-
-        //public BaseController(Models.UserContext context)
-        //{
-           
-        //   _context = context;
-        //    try{
-        //        //Random rnd = new Random();
-        //        //int log_val = rnd.Next(1, 1000);
-               
-        //        //using (_context = new Models.UserContext())
-        //        //{
-        //        //    Models.Log logs = new Models.Log()
-        //        //    {
-        //        //        //LogID = (randomly generated but keep checking against db if theres a duplicate)
-        //        //        Log_string = "First Signup to system", //depending on what user did generate str
-        //        //        LogDateTime = new DateTime(2010,2,2)
-        //        //    };
-        //        //    //for adding.....
-        //        //    Models.User user = new Models.User()
-        //        //    {
-        //        //       // user_name = post_user_temp, //grap from post func
-        //        //        log_data = logs,
-        //        //        api_key = 2
-        //        //    };
-        //        //    _context.Users.Add(user);
-        //        //    _context.logs.Add(logs);
-        //            _context.SaveChanges();
-        //        //}
-        //    }
-        //    catch(Exception ex)
-        //    {
-
-        //    }
-            
-        //}
     }
 }
