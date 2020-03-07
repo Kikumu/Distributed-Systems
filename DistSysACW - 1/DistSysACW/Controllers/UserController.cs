@@ -40,8 +40,7 @@ namespace DistSysACW.Controllers
         // POST: api/User
         //------------------------------------------------------------ADD NEW USR------------------------------------------------------------------//
         [HttpPost]
-        [ActionName("new")]
-        [Authorize(Roles = "Admin")]                                   //Works!!!!
+        [ActionName("new")]                                
         public ActionResult Post([FromBody] string value)
         {
             //string temp_1 = value;
@@ -67,8 +66,8 @@ namespace DistSysACW.Controllers
         }
         [HttpPost]
         [ActionName("ChangeRole")]
-        [Authorize(Roles = "Admin")]
-        //----------------------------------PARTIALLY IMPLIMENTED(Change role)----------------------------------------------------------------------------------//
+        [Authorize(Roles = "Admin")]  //Works! Only admin can do this
+        //---------------------------------- IMPLIMENTED(Change role)----------------------------------------------------------------------------------//
         public ActionResult change_role([FromQuery]string name,[FromHeader]int apikey)
         {
             string temp_ = "";
@@ -82,7 +81,8 @@ namespace DistSysACW.Controllers
         
         [HttpDelete]
         [ActionName("DeleteUser")]
-        //-------------------------------PARTIALLY IMPLEMENTED(delete user(LOL its supposed to be a delete request))-----------------------------------------//
+        [Authorize(Roles = "Admin,user")]
+        //------------------------------- IMPLEMENTED(delete user(LOL its supposed to be a delete request))-----------------------------------------//
         public string delete_user_data([FromQuery]string name,[FromHeader]int id)
         {
             string temp = "";
