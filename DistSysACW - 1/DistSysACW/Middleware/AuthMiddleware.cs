@@ -53,7 +53,7 @@ namespace DistSysACW.Middleware
 
                     var identity = new ClaimsIdentity(claims);
                     var claimsPrincipal = new ClaimsPrincipal(identity);
-                    //Thread.CurrentPrincipal = claimsPrincipal;
+                    Thread.CurrentPrincipal = claimsPrincipal;
                     context.User = claimsPrincipal; //Assigns principal to current HTTP context(I was just missing this lol)
                     //used to get current claims and principles
                 }

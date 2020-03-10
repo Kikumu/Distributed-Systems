@@ -87,11 +87,11 @@ namespace DistSysACW.Controllers
         [ActionName("DeleteUser")]
         [Authorize(Roles = "Admin,user")]
         //------------------------------- IMPLEMENTED(delete user(LOL its supposed to be a delete request))-----------------------------------------//
-        public string delete_user_data([FromQuery]string name,[FromHeader]int id)
+        public ActionResult delete_user_data([FromQuery]string name,[FromHeader]int id)
         {
             string temp = "";
             temp = delete_user(name);
-            return temp;
+            return new ObjectResult(temp);
         }
         // PUT: api/User/5
         [HttpPut("{id}")]

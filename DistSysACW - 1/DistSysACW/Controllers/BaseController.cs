@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DistSysACW.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
 
 namespace DistSysACW.Controllers
 {
@@ -58,7 +59,6 @@ namespace DistSysACW.Controllers
                 {
                     _bool = "False - User Does Not Exist! Did you mean to do a POST to create a new user?";
                 }
-                   
             }
             if (exist > 0)
             {
@@ -67,8 +67,25 @@ namespace DistSysACW.Controllers
            
             return _bool;
         }
+//-----------------------------------------protected hello function-----------------------------------------------//
+        public string encrypt_SHA1(string message)
+        {
+            DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor();
+            byte[] asciiByteMessage = decrptor.string_to_ascii(message);
+            byte[] sha1ByteMessage = decrptor.SHA1_Encrypt(asciiByteMessage);
+            return decrptor.ByteArrayToHexString(sha1ByteMessage);
+        }
+//--------------------------------------encrypt 256----------------------------------------------------------------//
+        public string encrypt_SHA256(string message)
+        {
+            DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor();
+            byte[] asciiByteMessage = decrptor.string_to_ascii(message);
+            byte[] sha256ByteMessage = decrptor.SHA256_Encrypt(asciiByteMessage);
+            return decrptor.ByteArrayToHexString(sha256ByteMessage);
+        }
+        
 //-------------------------------------TASK 4 ADD USERNAME TO DATABASE--------------------------------------------//
-
+        
         public string add_user(string name)
         {
             string admin_cap = "";                                                                      //if no one is in the database
@@ -95,7 +112,7 @@ namespace DistSysACW.Controllers
                 {
                     Models.Log logs = new Models.Log()
                     {
-                        //LogID = log_val,
+                       
                         Log_string = "First Signup to system", //depending on what user did generate str
                         LogDateTime = new DateTime(2010, 2, 2)
                     };
@@ -106,7 +123,7 @@ namespace DistSysACW.Controllers
                         log_data = logs,
                         role = "Admin"
 
-                        // api_key = api_val
+                        
                     };
                     rslt = Convert.ToString(user.api_key);
                     _context.Users.Add(user);
@@ -192,11 +209,6 @@ namespace DistSysACW.Controllers
             return "Changed";
         }
 
-        //public string role_update(string name)
-        //{
-        //    var _cntxt = new Models.UserContext();
-
-        //}
 
         //----------------------------------DELETE ROLE FUNCTION. WORKS BUT PARTIALLY IMPLEMENTED------------------------------------------------------------------//
         public string delete_user(string name)

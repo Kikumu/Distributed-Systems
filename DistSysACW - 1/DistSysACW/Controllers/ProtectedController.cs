@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using System.Security.Claims;
+using System.Threading;
 
 namespace DistSysACW.Controllers
 {
@@ -22,25 +24,58 @@ namespace DistSysACW.Controllers
         [HttpGet]
         [ActionName("hello")]
         [Authorize(Roles = "Admin,user")]
-        public string Get(int id)
+        public ActionResult Get()
         {
-            return "value";
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            var role_ = identity.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).SingleOrDefault();
+            string message = name;
+            string msg = "";
+            if (message == null || message == "")
+            {
+                this.Response.StatusCode = 400;
+                msg = "BAD REQUEST";
+            }
+            else
+            {
+                this.Response.StatusCode = 200;
+                msg = "Hello " + name;
+            }
+            return new ObjectResult(msg);
         }
         [HttpGet]
         [ActionName("sha1")]
         [Authorize(Roles = "Admin,user")]
-        public string security1(int id)
+        public ActionResult security1([FromQuery]string message)
         {
-            return "value";
+            string msg = "";
+            if (message == null || message == "")
+            {
+                this.Response.StatusCode = 400;
+                msg = "BAD REQUEST";
+            }
+            else
+            {
+                msg = encrypt_SHA1(message);
+            }
+            return new ObjectResult(msg);
         }
         [HttpGet]
-        [ActionName("sha26")]
+        [ActionName("sha256")]
         [Authorize(Roles = "Admin,user")]
-        public string security2(int id)
+        public ActionResult security2([FromQuery]string message)
         {
-            return "value";
+            string msg = "";
+            if(message == null || message == "")
+            {
+                this.Response.StatusCode = 400;
+                msg = "BAD REQUEST";
+            }
+            else
+            {
+                msg = encrypt_SHA256(message);
+            }
+            return new ObjectResult(msg);
         }
-
-
     }
 }
