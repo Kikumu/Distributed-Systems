@@ -4,43 +4,43 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace DistSysACW.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ProtectedController : ControllerBase
+    public class ProtectedController : BaseController
     {
-        // GET: api/Protected
-        [HttpGet]
-        public IEnumerable<string> Get()
+        public ProtectedController(Models.UserContext context) : base(context)
         {
-            return new string[] { "value1", "value2" };
+
         }
 
         // GET: api/Protected/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet]
+        [ActionName("hello")]
+        [Authorize(Roles = "Admin,user")]
         public string Get(int id)
         {
             return "value";
         }
-
-        // POST: api/Protected
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpGet]
+        [ActionName("sha1")]
+        [Authorize(Roles = "Admin,user")]
+        public string security1(int id)
         {
+            return "value";
+        }
+        [HttpGet]
+        [ActionName("sha26")]
+        [Authorize(Roles = "Admin,user")]
+        public string security2(int id)
+        {
+            return "value";
         }
 
-        // PUT: api/Protected/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
