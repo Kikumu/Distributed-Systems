@@ -35,8 +35,8 @@ namespace DistSysACW.Controllers
             //check array for strings
             try {
                 Array.Sort(num);
-                ObjectResult result = new ObjectResult(num);
-                return result;
+                return new ObjectResult(num);
+               // return result;
             }
             catch
             {
