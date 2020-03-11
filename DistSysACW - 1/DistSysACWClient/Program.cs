@@ -71,7 +71,7 @@ namespace DistSysACWClient
             {
                 string combine = "api/talkback/sort?num=" + tst;
                 Task<string> task = GetStringAsync(combine); // GET COMMAND
-                if (await Task.WhenAny(task, Task.Delay(2000)) == task) //DELAY
+                if (await Task.WhenAny(task, Task.Delay(3000)) == task) //DELAY
                     Console.WriteLine(task.Result); //Carry out task??...
                 else
                     Console.WriteLine("Request timed out");
@@ -87,7 +87,7 @@ namespace DistSysACWClient
             client.BaseAddress = new Uri("https://localhost:44307/");
             try
             {
-                string combine = "api/talkback/sort?num=" + tst;
+                string combine = "api/user/new?"+tst;
                 Task<string> task = GetStringAsync(combine); // GET COMMAND
                 if (await Task.WhenAny(task, Task.Delay(2000)) == task) //DELAY
                     Console.WriteLine(task.Result); //Carry out task??...
