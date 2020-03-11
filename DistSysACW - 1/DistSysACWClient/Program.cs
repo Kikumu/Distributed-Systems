@@ -8,16 +8,16 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text;
 
 namespace DistSysACWClient
 {
     class Client
     {
-        static HttpClient client = new HttpClient();
         static void Main(string[] args)
         {
             List<int> SortValues = new List<int>();
-
+            Class.UserClass user = new Class.UserClass();
             string choice = "";
             Console.WriteLine("Hello. What would you like to do?");
             Console.WriteLine();
@@ -25,7 +25,7 @@ namespace DistSysACWClient
             //----------------------------------------TALKBACKHELLO-----------------------------------------------------------//
             if(choice.Contains("Hello")== true && choice.Contains("TalkBack") == true)
             {
-                TalkbackHello().Wait();
+                Class.Tasks.TalkbackHello().Wait();
             }
             //--------------------------------------TALKBACKSORT------------------------------------------------------------//
             else if(choice.Contains("Sort") == true)
@@ -35,77 +35,28 @@ namespace DistSysACWClient
                 int remover = tokens[1].LastIndexOf(']');
                 manipulate = tokens[1].Remove(remover,1);
                 string tokens1 = manipulate.Replace("," ,"&num=");
-                TalkbackSort(tokens1).Wait();
+                Class.Tasks.TalkbackSort(tokens1).Wait();
             }
             //-------------------------------------GETUSER-----------------------------------------------------//
             else if (choice.Contains("Get") == true)
             {
+                string[] tokens = choice.Split(' ');
+                Class.Tasks.TalkbackGetUsr(tokens[2]).Wait();
+                user.user_name = tokens[2];
+            }
+            //-------------------------------------POSTUSER----------------------------------------------------//
+            else if(choice.Contains("Post")==true && choice.Contains("User"))
+            {
+                string json = "king";
+                Class.Tasks.TalkbackPostGetUsr(json).Wait();
+                user.api_key = Class.Tasks.return_api();
+            }
+            //------------------------------------DELETEUSER-----------------------------------------------------//
+            else if(choice.Contains("Delete")==true && choice.Contains("User"))
+            {
 
-            }
-
-            
-            //Console.ReadKey();
-        }
-        //-------------------------------------TALKBACK HELLO METHOD----------------------------------------------------------//
-        static async Task TalkbackHello()
-        {
-            client.BaseAddress = new Uri("https://localhost:44307/");
-            try
-            {
-                Task<string> task = GetStringAsync("api/talkback/hello"); // GET COMMAND
-                if (await Task.WhenAny(task, Task.Delay(3000)) == task) //DELAY
-                    Console.WriteLine(task.Result); //Carry out task??...
-                else
-                    Console.WriteLine("Request timed out");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error found: " + ex);
-            }
-        }
-        //-----------------------------TALKBACKSORT METHOD-------------------------------------------------------------//
-        static async Task TalkbackSort(string tst)
-        {
-            client.BaseAddress = new Uri("https://localhost:44307/");
-            try
-            {
-                string combine = "api/talkback/sort?num=" + tst;
-                Task<string> task = GetStringAsync(combine); // GET COMMAND
-                if (await Task.WhenAny(task, Task.Delay(3000)) == task) //DELAY
-                    Console.WriteLine(task.Result); //Carry out task??...
-                else
-                    Console.WriteLine("Request timed out");
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("Error found: " + ex);
-            }
-        }
-        //-----------------------------GETUSR METHOD-------------------------------------------------------------//
-        static async Task TalkbackGetUsr(string tst)
-        {
-            client.BaseAddress = new Uri("https://localhost:44307/");
-            try
-            {
-                string combine = "api/user/new?"+tst;
-                Task<string> task = GetStringAsync(combine); // GET COMMAND
-                if (await Task.WhenAny(task, Task.Delay(2000)) == task) //DELAY
-                    Console.WriteLine(task.Result); //Carry out task??...
-                else
-                    Console.WriteLine("Request timed out");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error found: " + ex);
             }
         }
 
-        static async Task<string> GetStringAsync(string path)
-        {
-            string response_str = "";
-            HttpResponseMessage response = await client.GetAsync(path);
-            response_str = await response.Content.ReadAsStringAsync();
-            return response_str; //GRAB STRING and put in body of client
-        }
     }
 }

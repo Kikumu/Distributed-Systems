@@ -4,9 +4,10 @@ using System.Text;
 
 namespace DistSysACWClient.Class
 {
-    class UserClass
+    public class UserClass
     {
         public string user_name { get; set; }
+        public string api_key { get; set; }
     }
     public class AdminClass
     {
