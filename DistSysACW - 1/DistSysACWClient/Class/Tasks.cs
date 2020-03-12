@@ -16,15 +16,15 @@ namespace DistSysACWClient.Class
         static HttpClient client = new HttpClient();
         
         // UserClass user = new UserClass();
-        public static string api_key = "";
+        public static string api_key = "5";
         //-----------------------------------------------------------------------TALKBACK HELLO---------------------------------------------------------------------------//
         public static async Task<string> TalkbackHello()
         {
-            client.BaseAddress = new Uri("https://localhost:44307/");
+           // client.BaseAddress = new Uri("https://localhost:44307/");
                 HttpRequestMessage httpRequest = new HttpRequestMessage();
                 httpRequest.RequestUri =new Uri("https://localhost:44307/api/talkback/hello");
                 httpRequest.Method = HttpMethod.Get;
-                httpRequest.Headers.Add("apikey", "2");
+                httpRequest.Headers.Add("apikey", "2");       //for authorization
                 HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
                 string resp = await httpResponse.Content.ReadAsStringAsync();
                 Console.WriteLine(resp);
@@ -37,7 +37,7 @@ namespace DistSysACWClient.Class
             HttpRequestMessage httpRequest = new HttpRequestMessage();
             httpRequest.RequestUri = new Uri("https://localhost:44307/api/talkback/sort?num=" + tst);
             httpRequest.Method = HttpMethod.Get;
-            httpRequest.Headers.Add("apikey", "2");
+            httpRequest.Headers.Add("apikey", "2");        //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
             Console.WriteLine(resp);
@@ -50,7 +50,7 @@ namespace DistSysACWClient.Class
             HttpRequestMessage httpRequest = new HttpRequestMessage();
             httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/new?name=" + tst);
             httpRequest.Method = HttpMethod.Get;
-            httpRequest.Headers.Add("apikey", "2");
+            httpRequest.Headers.Add("apikey", "2");   //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
             Console.WriteLine(resp);
@@ -62,14 +62,62 @@ namespace DistSysACWClient.Class
             HttpRequestMessage httpRequest = new HttpRequestMessage();
             httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/new");
             httpRequest.Method = HttpMethod.Post;
-            httpRequest.Headers.Add("apikey", "2");
-            var stringContent = new StringContent(JsonConvert.SerializeObject(tst), Encoding.UTF8, "application/json");
+            var stringContent = new StringContent(JsonConvert.SerializeObject(tst), Encoding.UTF8, "application/json");   //conversion to json string
             httpRequest.Content = stringContent;
+            HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
+            string resp = await httpResponse.Content.ReadAsStringAsync();
+            api_key = resp;
+            Console.WriteLine(resp);
+            return resp;
+
+        }
+        //-------------------------DELETEUSER-------------------------------------------------------------------//
+        public static async Task<string>TalkbackDeleteUser(string tst)
+        {
+            HttpRequestMessage httpRequest = new HttpRequestMessage();
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/DeleteUser?name="+tst);
+            httpRequest.Method = HttpMethod.Delete;
+            httpRequest.Headers.Add("apikey", return_api());      //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
             Console.WriteLine(resp);
             return resp;
-
+        }
+        //------------------------------------------PROTECTEDHELLO-------------------------------------------------------------------//
+        public static async Task<string> TalkbackProtectedHello()
+        {
+            HttpRequestMessage httpRequest = new HttpRequestMessage();
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/protected/hello");
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.Headers.Add("apikey", return_api());      //for authorization
+            HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
+            string resp = await httpResponse.Content.ReadAsStringAsync();
+            Console.WriteLine(resp);
+            return resp;
+        }
+        //------------------------------------protectedsha1-----------------------------------------------------------------------------------//
+        public static async Task<string> TalkbackProtectedSHA1(string tst)
+        {
+            HttpRequestMessage httpRequest = new HttpRequestMessage();
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/protected/sha1?message="+tst);
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.Headers.Add("apikey", return_api());      //for authorization
+            HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
+            string resp = await httpResponse.Content.ReadAsStringAsync();
+            Console.WriteLine(resp);
+            return resp;
+        }
+        //----------------------------------------PROTECTED256------------------------------------------------------------------------------------//
+        public static async Task<string> TalkbackProtectedSHA256(string tst)
+        {
+            HttpRequestMessage httpRequest = new HttpRequestMessage();
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/protected/sha256?message=" + tst);
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.Headers.Add("apikey", return_api());      //for authorization
+            HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
+            string resp = await httpResponse.Content.ReadAsStringAsync();
+            Console.WriteLine(resp);
+            return resp;
         }
         //----------------------------------------JUST RETURNS API--------------------------------------------------------------------//
         public static string return_api()

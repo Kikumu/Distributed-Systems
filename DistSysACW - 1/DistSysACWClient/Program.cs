@@ -54,7 +54,28 @@ namespace DistSysACWClient
             //------------------------------------DELETEUSER-----------------------------------------------------//
             else if(choice.Contains("Delete")==true && choice.Contains("User"))
             {
+                user.user_name = "amples";
+                string json = user.user_name;
+                Class.Tasks.TalkbackDeleteUser(json).Wait();
+               
+            }
+            //-----------------------------------PROTECTED HELLO-----------------------------------------------//
+            else if (choice.Contains("Protected") == true && choice.Contains("Hello"))
+            {
+                Class.Tasks.TalkbackProtectedHello().Wait();
+            }
+            //-----------------------------------PROTECTEDSHA1---------------------------------------------------//
+            else if (choice.Contains("Protected") == true && choice.Contains("SHA1"))
+            {
+                string[] tokens = choice.Split(' ');
+                Class.Tasks.TalkbackProtectedSHA1(tokens[2]).Wait();
 
+            }
+            //------------------------------protected256-----------------------------------------------------------//
+            else if (choice.Contains("Protected") == true && choice.Contains("SHA256"))
+            {
+                string[] tokens = choice.Split(' ');
+                Class.Tasks.TalkbackProtectedSHA256(tokens[2]).Wait();
             }
         }
 
