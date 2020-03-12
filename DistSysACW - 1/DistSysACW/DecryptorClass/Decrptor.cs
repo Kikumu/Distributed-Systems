@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
+using CoreExtensions;
 
 namespace DistSysACW.DecryptorClass
 {
@@ -87,19 +88,13 @@ namespace DistSysACW.DecryptorClass
         }
 
         //-------------------------------------------------HASH AND SIGN DATA--------------------------------------------------------//
-        public static byte[] HashAndSignBytes(byte[] DataToSign, RSAParameters Key)
+        public  byte[] HashAndSignBytes(byte[] DataToSign, dynamic Key)
         {
             try
             {
-                // Create a new instance of RSACryptoServiceProvider using the 
-                // key from RSAParameters.  
                 RSACryptoServiceProvider RSAalg = new RSACryptoServiceProvider();
-
-                RSAalg.ImportParameters(Key);
-
-                // Hash and sign the data. Pass a new instance of SHA1CryptoServiceProvider
-                // to specify the use of SHA1 for hashing.
-                return RSAalg.SignData(DataToSign, new SHA1CryptoServiceProvider());
+                CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(RSAalg,Key);
+               return RSAalg.SignData(DataToSign, new SHA1CryptoServiceProvider());
             }
             catch (CryptographicException e)
             {
@@ -108,6 +103,8 @@ namespace DistSysACW.DecryptorClass
                 return null;
             }
         }
+        //-----------------------------------verify
+       
 
     }
 }

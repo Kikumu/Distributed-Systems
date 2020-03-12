@@ -89,5 +89,17 @@ namespace DistSysACW.Controllers
             //rsaClient.FromXmlString(publicKeyXml);
             return new ObjectResult(generate_public_key());
         }
+        [HttpGet]
+        [ActionName("sign")]
+        [Authorize(Roles = "Admin,user")]
+        public ActionResult Signing([FromQuery]string message)
+        {
+            DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor();
+            byte[]data = decrptor.string_to_ascii(message);
+            var pKey = generate_private_key();
+            byte[] signed_data = decrptor.HashAndSignBytes(data, pKey);//sha1
+            var hex_return = decrptor.ByteArrayToHexString(signed_data);
+            return new ObjectResult(hex_return);
+        }
     }
 }

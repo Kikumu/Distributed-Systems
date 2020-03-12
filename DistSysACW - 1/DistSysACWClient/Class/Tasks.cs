@@ -14,7 +14,8 @@ namespace DistSysACWClient.Class
     class Tasks
     {
         static HttpClient client = new HttpClient();
-        
+        public static string Data_verify;
+        public static dynamic pKey;
         // UserClass user = new UserClass();
         public static string api_key = "5";
         //-----------------------------------------------------------------------TALKBACK HELLO---------------------------------------------------------------------------//
@@ -24,7 +25,7 @@ namespace DistSysACWClient.Class
                 HttpRequestMessage httpRequest = new HttpRequestMessage();
                 httpRequest.RequestUri =new Uri("https://localhost:44307/api/talkback/hello");
                 httpRequest.Method = HttpMethod.Get;
-                httpRequest.Headers.Add("apikey", "2");       //for authorization
+                httpRequest.Headers.Add("apikey", return_api());       //for authorization
                 HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
                 string resp = await httpResponse.Content.ReadAsStringAsync();
                 Console.WriteLine(resp);
@@ -37,7 +38,7 @@ namespace DistSysACWClient.Class
             HttpRequestMessage httpRequest = new HttpRequestMessage();
             httpRequest.RequestUri = new Uri("https://localhost:44307/api/talkback/sort?num=" + tst);
             httpRequest.Method = HttpMethod.Get;
-            httpRequest.Headers.Add("apikey", "2");        //for authorization
+            httpRequest.Headers.Add("apikey", return_api());        //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
             Console.WriteLine(resp);
@@ -50,7 +51,7 @@ namespace DistSysACWClient.Class
             HttpRequestMessage httpRequest = new HttpRequestMessage();
             httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/new?name=" + tst);
             httpRequest.Method = HttpMethod.Get;
-            httpRequest.Headers.Add("apikey", "5");   //for authorization
+            httpRequest.Headers.Add("apikey", return_api());   //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
             Console.WriteLine(resp);
@@ -129,6 +130,20 @@ namespace DistSysACWClient.Class
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
             Console.WriteLine(resp);
+            pKey = resp;
+            return resp;
+        }
+        //------------------------------------------SIGHWITHPRIVATEKEY------------------------------------------//
+        public static async Task<string> TalkbackProtectedPrivate_key(string tst)
+        {
+            HttpRequestMessage httpRequest = new HttpRequestMessage();
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/protected/sign?message="+tst);
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.Headers.Add("apikey", return_api());      //for authorization
+            HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
+            string resp = await httpResponse.Content.ReadAsStringAsync();
+            Console.WriteLine(resp);
+            Data_verify = resp;
             return resp;
         }
         //----------------------------------------JUST RETURNS API--------------------------------------------------------------------//
