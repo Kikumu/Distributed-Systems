@@ -27,6 +27,7 @@ namespace DistSysACW.DecryptorClass
                 {
 
                     hexString += (b + 6).ToString("x2"); //the +6 is the salt 
+                    hexString += "-";
                 }
             }
             return hexString;
@@ -85,16 +86,28 @@ namespace DistSysACW.DecryptorClass
             return sha1ByteMessage;
         }
 
-       
-        //public string SHA256_Encrypt(byte [] message)
-        //{
-        //    byte[] encryptedByte;
-        //    SHA256CryptoServiceProvider RSA = new SHA256CryptoServiceProvider();
-        //    encryptedByte = RSAEncrypt(message, RSA.ExportParameters(false));
+        //-------------------------------------------------HASH AND SIGN DATA--------------------------------------------------------//
+        public static byte[] HashAndSignBytes(byte[] DataToSign, RSAParameters Key)
+        {
+            try
+            {
+                // Create a new instance of RSACryptoServiceProvider using the 
+                // key from RSAParameters.  
+                RSACryptoServiceProvider RSAalg = new RSACryptoServiceProvider();
 
-        //    return (ByteArrayToHexString(encryptedByte));
+                RSAalg.ImportParameters(Key);
 
-        //}
+                // Hash and sign the data. Pass a new instance of SHA1CryptoServiceProvider
+                // to specify the use of SHA1 for hashing.
+                return RSAalg.SignData(DataToSign, new SHA1CryptoServiceProvider());
+            }
+            catch (CryptographicException e)
+            {
+                Console.WriteLine(e.Message);
+
+                return null;
+            }
+        }
 
     }
 }

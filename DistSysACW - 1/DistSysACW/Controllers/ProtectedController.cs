@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
 using System.Security.Claims;
 using System.Threading;
+using System.Security.Cryptography;
 
 namespace DistSysACW.Controllers
 {
@@ -19,7 +20,7 @@ namespace DistSysACW.Controllers
         {
 
         }
-
+        
         // GET: api/Protected/5
         [HttpGet]
         [ActionName("hello")]
@@ -77,12 +78,16 @@ namespace DistSysACW.Controllers
             }
             return new ObjectResult(msg);
         }
-        //[HttpGet]
-        //[ActionName("GetPublicey")]
-        //[Authorize(Roles = "Admin,user")]
-        //public ActionResult GetPublicKey()
-        //{
-
-        //}
+        [HttpGet]
+        [ActionName("GetPublicey")]
+        [Authorize(Roles = "Admin,user")]
+        public ActionResult GetPublicKey()
+        {
+            //var rsaServer = new RSACryptoServiceProvider(1024);
+            //var publicKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(rsaServer, false);
+            //var rsaClient = new RSACryptoServiceProvider(1024);
+            //rsaClient.FromXmlString(publicKeyXml);
+            return new ObjectResult(generate_public_key());
+        }
     }
 }

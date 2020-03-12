@@ -16,7 +16,8 @@ namespace DistSysACW.Middleware
     public class AuthMiddleware
     {
         private readonly RequestDelegate _next;
-
+        public static int count = 0;  //public key init
+        public static dynamic publicxml;
         public AuthMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -25,7 +26,7 @@ namespace DistSysACW.Middleware
         public async Task InvokeAsync(HttpContext context, Models.UserContext dbContext)
         {
             //Checks if api-key from header is valid-----------------------------------------------------------------//
-
+           
             string test = "";
             test = context.Request.Headers["apikey"].ToString();   //grabs specified header from request header
             if (test != "")
@@ -49,19 +50,6 @@ namespace DistSysACW.Middleware
                 // ClaimTypes.Name = operator_;
                 if(operator_ != "" && designation_ != "")
                 {
-                    var rsaServer = new RSACryptoServiceProvider(1024);
-                    var publicKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(rsaServer, false);
-                    //var publicKeyXml = rsaServer.ToXmlString(false);
-                    var rsaClient = new RSACryptoServiceProvider(1024);
-                    rsaClient.FromXmlString(publicKeyXml);
-
-
-
-
-
-
-
-
                     var claims = new List<Claim>();
                     claims.Add(new Claim(ClaimTypes.Name, operator_));
                     claims.Add(new Claim(ClaimTypes.Role, designation_));
@@ -73,12 +61,17 @@ namespace DistSysACW.Middleware
                     Thread.CurrentPrincipal = claimsPrincipal;
                     context.User = claimsPrincipal; //Assigns principal to current HTTP context(I was just missing this lol)
                     //used to get current claims and principles
+                    count += 1;
                 }
-              
+                if (count < 2)
+                {
+                    var rsaServer = new RSACryptoServiceProvider(1024);
+                    var publicKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(rsaServer, false);
+                    publicxml = publicKeyXml;
+                }
             }
             // Call the next delegate/middleware in the pipeline
             await _next(context);
         }
-
     }
 }

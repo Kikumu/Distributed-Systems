@@ -9,11 +9,12 @@ using System.Security.Cryptography;
 
 namespace DistSysACW.Controllers
 {
-    
+
     [Route("api/[Controller]/[Action]")]
     [ApiController]
     public abstract class BaseController : ControllerBase
     {
+        public static dynamic Dynamic;
         //private UserController fooManager = new UserController();
         protected readonly Models.UserContext _context;
         //store admin api-key and user api-key?
@@ -30,12 +31,12 @@ namespace DistSysACW.Controllers
         public void obtain_keys()
         {
             var _keys = context.Users;
-           
+
             foreach (Models.User user in _keys)
             {
                 //I just wanna obtain admin and user api key
                 if ("Admin" == user.role)
-                    admin_api.Add (user.api_key);
+                    admin_api.Add(user.api_key);
                 else if ("user" == user.role)
                     user_api.Add(user.api_key);
             }
@@ -48,13 +49,13 @@ namespace DistSysACW.Controllers
             var _names = context.Users;
             int exist = 0;
             //I just wanna know if user exists or nah
-            foreach(Models.User user in _names)
+            foreach (Models.User user in _names)
             {
                 str = name;
                 if (str == user.user_name)
                 {
                     exist += 1;
-                }   
+                }
                 else
                 {
                     _bool = "False - User Does Not Exist! Did you mean to do a POST to create a new user?";
@@ -64,10 +65,10 @@ namespace DistSysACW.Controllers
             {
                 _bool = "True - User Does Exist! Did you mean to do a POST to create a new user?";
             }
-           
+
             return _bool;
         }
-//-----------------------------------------protected hello function-----------------------------------------------//
+        //-----------------------------------------protected hello function-----------------------------------------------//
         public string encrypt_SHA1(string message)
         {
             DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor();
@@ -75,7 +76,7 @@ namespace DistSysACW.Controllers
             byte[] sha1ByteMessage = decrptor.SHA1_Encrypt(asciiByteMessage);
             return decrptor.ByteArrayToHexString(sha1ByteMessage);
         }
-//--------------------------------------encrypt 256----------------------------------------------------------------//
+        //--------------------------------------encrypt 256----------------------------------------------------------------//
         public string encrypt_SHA256(string message)
         {
             DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor();
@@ -83,13 +84,13 @@ namespace DistSysACW.Controllers
             byte[] sha256ByteMessage = decrptor.SHA256_Encrypt(asciiByteMessage);
             return decrptor.ByteArrayToHexString(sha256ByteMessage);
         }
-        
-//-------------------------------------TASK 4 ADD USERNAME TO DATABASE--------------------------------------------//
-        
+
+        //-------------------------------------TASK 4 ADD USERNAME TO DATABASE--------------------------------------------//
+
         public string add_user(string name)
         {
             string admin_cap = "";                                                                      //if no one is in the database
-            List<string>admin_cap_role = new List<string>();                                            //stores all roles
+            List<string> admin_cap_role = new List<string>();                                            //stores all roles
             string role_determiner = "";                                                                //will return "null" if no admin role found
             string rslt = "";
             if (name == "" || name == null)
@@ -112,7 +113,7 @@ namespace DistSysACW.Controllers
                 {
                     Models.Log logs = new Models.Log()
                     {
-                       
+
                         Log_string = "First Signup to system", //depending on what user did generate str
                         LogDateTime = new DateTime(2010, 2, 2)
                     };
@@ -123,7 +124,7 @@ namespace DistSysACW.Controllers
                         log_data = logs,
                         role = "Admin"
 
-                        
+
                     };
                     rslt = Convert.ToString(user.api_key);
                     _context.Users.Add(user);
@@ -134,7 +135,7 @@ namespace DistSysACW.Controllers
 
 
             //condition for user
-            if (rslt == "" && admin_cap!="")                                                             //if result is empty and there are already people in the database
+            if (rslt == "" && admin_cap != "")                                                             //if result is empty and there are already people in the database
             {
                 using (Models.UserContext _context = new Models.UserContext())
                 {
@@ -165,9 +166,9 @@ namespace DistSysACW.Controllers
                             rslt = user.api_key.ToString();
                     }
                 }
-               // rslt = "Saved";
+                // rslt = "Saved";
             }
-            return rslt; 
+            return rslt;
         }
 
         //------------------------------------UPDATING ROLE FUNCTION. WORKS------------------------------------//
@@ -195,8 +196,8 @@ namespace DistSysACW.Controllers
                 rslt = "Unavailable";
             }
             return rslt;
-            
-           
+
+
         }
         //------------------------------------------------UPDATE TO USER----------------------------------------------------//
 
@@ -219,6 +220,21 @@ namespace DistSysACW.Controllers
             _cntxt.Users.Remove(t_name);
             _cntxt.SaveChanges();
             return "deleted";
+        }
+        //---------------------------------GENERATE PUBLIC KEY-------------------//
+        
+        public dynamic generate_public_key()
+        {
+                var publicKeyXml =Middleware.AuthMiddleware.publicxml;
+                return publicKeyXml;
+        }
+        //--------------------------------GENERATE PRIVATE KEY------------------//
+        public dynamic generate_private_key()
+        {
+           
+            var rsaServer = new RSACryptoServiceProvider(1024);
+            var privateKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(rsaServer, true);
+            return privateKeyXml;
         }
     }
 }

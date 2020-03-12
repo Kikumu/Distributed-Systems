@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,10 +22,12 @@ namespace DistSysACW.Controllers
 
         [HttpGet(Name = "hello")]
         [ActionName("hello")]
-        [Authorize(Roles = "Admin")]
         //------------------------------------------------TASK1 DONE-----------------------------------------------------------------//
         public ActionResult hello()
         {
+         
+
+
             return new ObjectResult("Hello world");
         }
         //-----------------------------------------------TASK2 DONE-----------------------------------------------------------------//

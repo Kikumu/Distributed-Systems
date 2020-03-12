@@ -119,6 +119,18 @@ namespace DistSysACWClient.Class
             Console.WriteLine(resp);
             return resp;
         }
+        //-----------------------------------------RETURNPUBLICKEY------------------------------------------------------------------------------//
+        public static async Task<string> TalkbackProtectedPublic_key()
+        {
+            HttpRequestMessage httpRequest = new HttpRequestMessage();
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/protected/GetPublicey");
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.Headers.Add("apikey", return_api());      //for authorization
+            HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
+            string resp = await httpResponse.Content.ReadAsStringAsync();
+            Console.WriteLine(resp);
+            return resp;
+        }
         //----------------------------------------JUST RETURNS API--------------------------------------------------------------------//
         public static string return_api()
         {
