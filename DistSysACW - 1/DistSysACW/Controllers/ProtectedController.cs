@@ -77,5 +77,12 @@ namespace DistSysACW.Controllers
             }
             return new ObjectResult(msg);
         }
+        //[HttpGet]
+        //[ActionName("GetPublicey")]
+        //[Authorize(Roles ="Admin,user")]
+        //public ActionResult GetPublicKey()
+        //{
+
+        //}
     }
 }

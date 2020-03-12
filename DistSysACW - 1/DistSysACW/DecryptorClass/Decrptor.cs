@@ -43,7 +43,11 @@ namespace DistSysACW.DecryptorClass
                 }
                 return encryptedData;
             }
-            catch (CryptographicException e) { Console.WriteLine(e.Message); return null; }
+            catch (CryptographicException e) 
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
         //------------------------------------------DECRYPTOR------------------------------------------------------------------------------------------------//
         public byte[] RSADecrypt(byte[] DataToDecrypt, RSAParameters RSAKeyInfo)
