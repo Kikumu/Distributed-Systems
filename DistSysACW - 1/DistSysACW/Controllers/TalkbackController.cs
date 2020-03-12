@@ -21,7 +21,7 @@ namespace DistSysACW.Controllers
 
         [HttpGet(Name = "hello")]
         [ActionName("hello")]
-
+        [Authorize(Roles = "Admin")]
         //------------------------------------------------TASK1 DONE-----------------------------------------------------------------//
         public ActionResult hello()
         {
