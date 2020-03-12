@@ -84,6 +84,8 @@ namespace DistSysACW.DecryptorClass
             sha1ByteMessage = sHA.ComputeHash(message);
             return sha1ByteMessage;
         }
+
+       
         //public string SHA256_Encrypt(byte [] message)
         //{
         //    byte[] encryptedByte;

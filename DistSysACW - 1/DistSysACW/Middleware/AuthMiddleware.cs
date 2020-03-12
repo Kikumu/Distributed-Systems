@@ -7,6 +7,9 @@ using System.IO;
 using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Threading;
+using System.Security.Cryptography;
+using System.Text;
+using CoreExtensions;
 
 namespace DistSysACW.Middleware
 {
@@ -46,9 +49,23 @@ namespace DistSysACW.Middleware
                 // ClaimTypes.Name = operator_;
                 if(operator_ != "" && designation_ != "")
                 {
+                    var rsaServer = new RSACryptoServiceProvider(1024);
+                    var publicKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(rsaServer, false);
+                    //var publicKeyXml = rsaServer.ToXmlString(false);
+                    var rsaClient = new RSACryptoServiceProvider(1024);
+                    rsaClient.FromXmlString(publicKeyXml);
+
+
+
+
+
+
+
+
                     var claims = new List<Claim>();
                     claims.Add(new Claim(ClaimTypes.Name, operator_));
                     claims.Add(new Claim(ClaimTypes.Role, designation_));
+                    claims.Add(new Claim(ClaimTypes.Hash, ""));
                     claims.Add(new Claim(ClaimTypes.Authentication, context.Request.Headers["apikey"]));
 
                     var identity = new ClaimsIdentity(claims);

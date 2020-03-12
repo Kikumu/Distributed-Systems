@@ -79,7 +79,7 @@ namespace DistSysACW.Controllers
         }
         //[HttpGet]
         //[ActionName("GetPublicey")]
-        //[Authorize(Roles ="Admin,user")]
+        //[Authorize(Roles = "Admin,user")]
         //public ActionResult GetPublicKey()
         //{
 

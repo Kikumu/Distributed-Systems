@@ -50,7 +50,7 @@ namespace DistSysACWClient.Class
             HttpRequestMessage httpRequest = new HttpRequestMessage();
             httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/new?name=" + tst);
             httpRequest.Method = HttpMethod.Get;
-            httpRequest.Headers.Add("apikey", "2");   //for authorization
+            httpRequest.Headers.Add("apikey", "5");   //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
             Console.WriteLine(resp);
