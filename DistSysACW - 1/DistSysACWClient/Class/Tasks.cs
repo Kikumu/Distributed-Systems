@@ -17,7 +17,7 @@ namespace DistSysACWClient.Class
         public static string Data_verify;
         public static dynamic pKey;
         // UserClass user = new UserClass();
-        public static string api_key = "5";
+        public static string api_key = "";
         //-----------------------------------------------------------------------TALKBACK HELLO---------------------------------------------------------------------------//
         public static async Task<string> TalkbackHello()
         {

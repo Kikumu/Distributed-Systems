@@ -44,6 +44,7 @@ namespace DistSysACW.Controllers
         [ActionName("new")]                                
         public ActionResult Post([FromBody] string value)
         {
+        
             //string temp_1 = value;
             string temp = "";
             temp = Convert.ToString(add_user(value));

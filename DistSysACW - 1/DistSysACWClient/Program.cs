@@ -42,8 +42,10 @@ namespace DistSysACWClient
                     manipulate = tokens[1].Remove(remover, 1);
                     string tokens1 = manipulate.Replace(",", "&num=");
                     Class.Tasks.TalkbackSort(tokens1).Wait();
+                    
                     choice = Console.ReadLine();
                 }
+               
                 //-------------------------------------GETUSER-----------------------------------------------------------------//
                 else if (choice.Contains("Get") == true && choice.Contains("User") == true)
                 {
@@ -57,7 +59,7 @@ namespace DistSysACWClient
                 else if (choice.Contains("Post") == true && choice.Contains("User") == true)
                 {
                     Console.WriteLine("Please wait....");
-                    string json = "king";
+                    string json = user.user_name;
                     Class.Tasks.TalkbackPostGetUsr(json).Wait();
                     user.api_key = Class.Tasks.return_api();
                     choice = Console.ReadLine();
@@ -117,6 +119,11 @@ namespace DistSysACWClient
                     var data3 = Class.Tasks.pKey; //server public key
                     bool confirm = verify.VerifySignedHash(data, data2_1, data3);
                     Console.WriteLine("Confirmation: " + confirm);
+                    choice = Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine("BAD COMMAND");
                     choice = Console.ReadLine();
                 }
             }

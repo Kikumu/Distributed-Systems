@@ -23,15 +23,12 @@ namespace DistSysACWClient.Class
         {
             try
             {
+                
                 bool f = true;
-                // Create a new instance of RSACryptoServiceProvider using the 
-                // key from RSAParameters.
                 RSACryptoServiceProvider RSAalg = new RSACryptoServiceProvider();
                 CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(RSAalg, Key);
-                // Verify the data using the signature.  Pass a new instance of SHA1CryptoServiceProvider
-                // to specify the use of SHA1 for hashing.
                 f = RSAalg.VerifyData(OriginalData, new SHA1CryptoServiceProvider(), SignedData);
-                return true;
+                return f;
             }
             catch (CryptographicException e)
             {

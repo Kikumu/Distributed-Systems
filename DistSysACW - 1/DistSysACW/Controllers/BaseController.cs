@@ -48,6 +48,7 @@ namespace DistSysACW.Controllers
             string str = "";
             var _names = context.Users;
             int exist = 0;
+            string api = null;
             //I just wanna know if user exists or nah
             foreach (Models.User user in _names)
             {
@@ -55,6 +56,7 @@ namespace DistSysACW.Controllers
                 if (str == user.user_name)
                 {
                     exist += 1;
+                    api = Convert.ToString(user.api_key);
                 }
                 else
                 {
@@ -89,13 +91,14 @@ namespace DistSysACW.Controllers
 
         public string add_user(string name)
         {
-            string admin_cap = "";                                                                      //if no one is in the database
+            string admin_cap = null;                                                                      //if no one is in the database
             List<string> admin_cap_role = new List<string>();                                            //stores all roles
-            string role_determiner = "";                                                                //will return "null" if no admin role found
-            string rslt = "";
+            string role_determiner = null;                                                                //will return "null" if no admin role found
+            string rslt = null;
             if (name == "" || name == null)
                 rslt = "Empty";
             var _names = context.Users;
+
             foreach (Models.User user in _names)
             {
                 string str = name;
@@ -107,7 +110,7 @@ namespace DistSysACW.Controllers
             role_determiner = admin_cap_role.Find(x => x.Contains("Admin"));                            //will return "null" if no admin role found
             //search admin cap role for admin
 
-            if (admin_cap == "" || role_determiner == null)                                             //if there are no people in the database or all users in the database are signed in as users
+            if (admin_cap == null || role_determiner == null)                                             //if there are no people in the database or all users in the database are signed in as users
             {
                 using (Models.UserContext _context = new Models.UserContext())
                 {
@@ -135,7 +138,7 @@ namespace DistSysACW.Controllers
 
 
             //condition for user
-            if (rslt == "" && admin_cap != "")                                                             //if result is empty and there are already people in the database
+            if (rslt == null && admin_cap != null)                                                             //if result is empty and there are already people in the database
             {
                 using (Models.UserContext _context = new Models.UserContext())
                 {
@@ -231,8 +234,8 @@ namespace DistSysACW.Controllers
         //--------------------------------GENERATE PRIVATE KEY------------------//
         public dynamic generate_private_key()
         { 
-            var rsaServer = new RSACryptoServiceProvider(1024);
-            var privateKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(rsaServer, true);
+           // var rsaServer = new RSACryptoServiceProvider(1024);
+            var privateKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(Middleware.AuthMiddleware.rsaServer, true);
             return privateKeyXml;
         }
     }
