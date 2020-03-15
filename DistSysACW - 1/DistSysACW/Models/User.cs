@@ -15,9 +15,11 @@ namespace DistSysACW.Models
        [Key]
         public int api_key { get; set; }
         public string user_name { get; set; }
-        public Log log_data { get; set; }
+        public ICollection<Log> Logs { get; set; }
 
         public string role { get; set; }
+
+        public User() { }
 
         //public int log_data { get; set; }
         //should be on same table...will fix this later
@@ -32,6 +34,8 @@ namespace DistSysACW.Models
         public int LogID { get; set; }
         public string Log_string { get; set; }  //describes what user did
         public DateTime LogDateTime { get; set; }
+
+        public Log() { }
         //User log_usr = new User();
        
        // public ICollection<>

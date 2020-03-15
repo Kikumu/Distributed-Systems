@@ -67,6 +67,10 @@ namespace DistSysACW.Controllers
             {
                 _bool = "True - User Does Exist! Did you mean to do a POST to create a new user?";
             }
+            else
+            {
+                _bool = "False - User Does Not Exist! Did you mean to do a POST to create a new user?";
+            }
 
             return _bool;
         }
@@ -120,18 +124,24 @@ namespace DistSysACW.Controllers
                         Log_string = "First Signup to system", //depending on what user did generate str
                         LogDateTime = DateTime.Now
                     };
+                    var _logs = new List<Models.Log>
+                    {
+                        new Log{Log_string = "First System Signup", LogDateTime = DateTime.Now},
+                        new Log{Log_string = "Test data", LogDateTime = DateTime.Now},
+                        new Log{Log_string = "Test data 3", LogDateTime = DateTime.Now}
+                    };
                     //for adding.....
                     Models.User user = new Models.User()
                     {
                         user_name = name, //grap from post func
-                        log_data = logs,
+                        Logs = _logs,
                         role = "Admin"
 
 
                     };
                     rslt = Convert.ToString(user.api_key);
                     _context.Users.Add(user);
-                    _context.logs.Add(logs);
+                    _context.logs.AddRange(_logs);
                     _context.SaveChanges();
                 }
             }
@@ -146,18 +156,24 @@ namespace DistSysACW.Controllers
                     {
                         //LogID = log_val,
                         Log_string = "First Signup to system", //depending on what user did generate str
-                        LogDateTime = new DateTime(2010, 2, 2)
+                        LogDateTime = DateTime.Now
+                    };
+                    var _logs = new List<Models.Log>
+                    {
+                        new Log{Log_string = "First System Signup", LogDateTime = DateTime.Now},
+                        new Log{Log_string = "Test data", LogDateTime = DateTime.Now},
+                        new Log{Log_string = "Test data 3", LogDateTime = DateTime.Now}
                     };
                     //for adding.....
                     Models.User user = new Models.User()
                     {
                         user_name = name, //grap from post func
-                        log_data = logs,
+                        Logs = _logs,
                         role = "user"
                     };
                     rslt = Convert.ToString(user.api_key);
                     _context.Users.Add(user);
-                    _context.logs.Add(logs);
+                    _context.logs.AddRange(_logs);
                     _context.SaveChanges();
 
                     foreach (Models.User user1 in _names)
@@ -249,7 +265,8 @@ namespace DistSysACW.Controllers
             };
             var _cntxt = new Models.UserContext();
             var t_name = _cntxt.Users.Where(u => u.user_name == name).First();
-            t_name.log_data = logs;
+            //t_name.log_data = logs;
+            //_cntxt.Add(logs);
             _cntxt.SaveChanges();
         }
     }
