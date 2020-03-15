@@ -118,7 +118,7 @@ namespace DistSysACW.Controllers
                     {
 
                         Log_string = "First Signup to system", //depending on what user did generate str
-                        LogDateTime = new DateTime(2010, 2, 2)
+                        LogDateTime = DateTime.Now
                     };
                     //for adding.....
                     Models.User user = new Models.User()
@@ -237,6 +237,20 @@ namespace DistSysACW.Controllers
            // var rsaServer = new RSACryptoServiceProvider(1024);
             var privateKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(Middleware.AuthMiddleware.rsaServer, true);
             return privateKeyXml;
+        }
+        //-------------------------------update log---------------------------------------
+        public void update_log(string name, string action)
+        {
+            Models.Log logs = new Models.Log()
+            {
+                //LogID = log_val,
+                Log_string = action, //depending on what user did generate str
+                LogDateTime = DateTime.Now
+            };
+            var _cntxt = new Models.UserContext();
+            var t_name = _cntxt.Users.Where(u => u.user_name == name).First();
+            t_name.log_data = logs;
+            _cntxt.SaveChanges();
         }
     }
 }

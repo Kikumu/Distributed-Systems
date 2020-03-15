@@ -72,7 +72,6 @@ namespace DistSysACWClient
                     string json = user.user_name;
                     Class.Tasks.TalkbackDeleteUser(json).Wait();
                     choice = Console.ReadLine();
-
                 }
                 //-----------------------------------PROTECTED HELLO--------------------------------------------------------//
                 else if (choice.Contains("Protected") == true && choice.Contains("Hello") == true)

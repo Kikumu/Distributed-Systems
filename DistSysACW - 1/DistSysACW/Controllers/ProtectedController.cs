@@ -41,6 +41,7 @@ namespace DistSysACW.Controllers
             {
                 this.Response.StatusCode = 200;
                 msg = "Hello " + name;
+                update_log(name, "User Requested Protected Hello");
             }
             return new ObjectResult(msg);
         }
@@ -57,7 +58,11 @@ namespace DistSysACW.Controllers
             }
             else
             {
+
                 msg = encrypt_SHA1(message);
+                var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+                var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+                update_log(name, "User Requested Protected SHA1");
             }
             return new ObjectResult(msg);
         }
@@ -75,6 +80,9 @@ namespace DistSysACW.Controllers
             else
             {
                 msg = encrypt_SHA256(message);
+                var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+                var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+                update_log(name, "User Requested Protected SHA256");
             }
             return new ObjectResult(msg);
         }
@@ -87,7 +95,11 @@ namespace DistSysACW.Controllers
             //var publicKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(rsaServer, false);
             //var rsaClient = new RSACryptoServiceProvider(1024);
             //rsaClient.FromXmlString(publicKeyXml);
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            update_log(name, "User Requested Public Key");
             return new ObjectResult(generate_public_key());
+
         }
         [HttpGet]
         [ActionName("sign")]
@@ -99,6 +111,9 @@ namespace DistSysACW.Controllers
             var pKey = generate_private_key();
             byte[] signed_data = decrptor.HashAndSignBytes(data, pKey);//sha1
             var hex_return = decrptor.ByteArrayToHexString(signed_data);
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            update_log(name, "User Signed a message using private key");
             return new ObjectResult(hex_return);
         }
     }
