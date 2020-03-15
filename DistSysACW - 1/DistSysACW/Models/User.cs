@@ -36,9 +36,6 @@ namespace DistSysACW.Models
         public DateTime LogDateTime { get; set; }
 
         public Log() { }
-        //User log_usr = new User();
-       
-       // public ICollection<>
     }
 
     public static class UserDatabaseAccess

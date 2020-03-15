@@ -56,6 +56,7 @@ namespace DistSysACW.Middleware
                     claims.Add(new Claim(ClaimTypes.Role, designation_));
                     claims.Add(new Claim(ClaimTypes.Hash, ""));
                     claims.Add(new Claim(ClaimTypes.Authentication, context.Request.Headers["apikey"]));
+                    claims.Add(new Claim(ClaimTypes.Thumbprint, context.Request.Headers["apikey"]));
 
                     var identity = new ClaimsIdentity(claims);
                     var claimsPrincipal = new ClaimsPrincipal(identity);

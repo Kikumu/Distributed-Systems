@@ -6,6 +6,8 @@ using DistSysACW.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
+using System.Security.Claims;
+using System.Threading;
 
 namespace DistSysACW.Controllers
 {
@@ -118,12 +120,6 @@ namespace DistSysACW.Controllers
             {
                 using (Models.UserContext _context = new Models.UserContext())
                 {
-                    Models.Log logs = new Models.Log()
-                    {
-
-                        Log_string = "First Signup to system", //depending on what user did generate str
-                        LogDateTime = DateTime.Now
-                    };
                     var _logs = new List<Models.Log>
                     {
                         new Log{Log_string = "First System Signup", LogDateTime = DateTime.Now},
@@ -139,6 +135,7 @@ namespace DistSysACW.Controllers
 
 
                     };
+                    
                     rslt = Convert.ToString(user.api_key);
                     _context.Users.Add(user);
                     _context.logs.AddRange(_logs);
@@ -152,17 +149,10 @@ namespace DistSysACW.Controllers
             {
                 using (Models.UserContext _context = new Models.UserContext())
                 {
-                    Models.Log logs = new Models.Log()
-                    {
-                        //LogID = log_val,
-                        Log_string = "First Signup to system", //depending on what user did generate str
-                        LogDateTime = DateTime.Now
-                    };
                     var _logs = new List<Models.Log>
                     {
                         new Log{Log_string = "First System Signup", LogDateTime = DateTime.Now},
-                        new Log{Log_string = "Test data", LogDateTime = DateTime.Now},
-                        new Log{Log_string = "Test data 3", LogDateTime = DateTime.Now}
+                      
                     };
                     //for adding.....
                     Models.User user = new Models.User()
@@ -257,16 +247,17 @@ namespace DistSysACW.Controllers
         //-------------------------------update log---------------------------------------
         public void update_log(string name, string action)
         {
-            Models.Log logs = new Models.Log()
-            {
-                //LogID = log_val,
-                Log_string = action, //depending on what user did generate str
-                LogDateTime = DateTime.Now
-            };
+           // var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+           // var name__ = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            var _logs = new List<Models.Log>
+                    {
+                        new Log{Log_string = action, LogDateTime = DateTime.Now},
+
+                    };
+          
             var _cntxt = new Models.UserContext();
             var t_name = _cntxt.Users.Where(u => u.user_name == name).First();
-            //t_name.log_data = logs;
-            //_cntxt.Add(logs);
+            t_name.Logs = _logs;
             _cntxt.SaveChanges();
         }
     }
