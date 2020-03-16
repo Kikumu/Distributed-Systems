@@ -240,7 +240,6 @@ namespace DistSysACW.Controllers
         //--------------------------------GENERATE PRIVATE KEY------------------//
         public dynamic generate_private_key()
         { 
-           // var rsaServer = new RSACryptoServiceProvider(1024);
             var privateKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(Middleware.AuthMiddleware.rsaServer, true);
             return privateKeyXml;
         }

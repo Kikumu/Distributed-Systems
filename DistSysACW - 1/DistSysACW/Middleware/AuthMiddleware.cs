@@ -18,7 +18,8 @@ namespace DistSysACW.Middleware
         private readonly RequestDelegate _next;
         public static int count = 0;  //public key init
         public static dynamic publicxml;
-        public static dynamic rsaServer = new RSACryptoServiceProvider(1024);
+        //public static dynamic rsaServer = new RSACryptoServiceProvider(1024);
+        public  static RSACryptoServiceProvider rsaServer = new RSACryptoServiceProvider();
         public AuthMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -67,6 +68,7 @@ namespace DistSysACW.Middleware
                 }
                 if (count < 2)
                 {
+                    
                     var publicKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(rsaServer, false);
                     publicxml = publicKeyXml;
                 }

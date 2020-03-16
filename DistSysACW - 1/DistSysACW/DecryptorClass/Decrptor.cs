@@ -92,9 +92,8 @@ namespace DistSysACW.DecryptorClass
         {
             try
             {
-                RSACryptoServiceProvider RSAalg = new RSACryptoServiceProvider();
-                CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(RSAalg,Key);
-               return RSAalg.SignData(DataToSign, new SHA1CryptoServiceProvider());
+                CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(Middleware.AuthMiddleware.rsaServer,Key);
+               return Middleware.AuthMiddleware.rsaServer.SignData(DataToSign, new SHA1CryptoServiceProvider());
             }
             catch (CryptographicException e)
             {
