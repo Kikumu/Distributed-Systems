@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Security.Cryptography;
 
+
 namespace DistSysACW.Controllers
 {
     [Route("api/[controller]/[action]")]
@@ -91,14 +92,12 @@ namespace DistSysACW.Controllers
         [Authorize(Roles = "Admin,user")]
         public ActionResult GetPublicKey()
         {
-            //var rsaServer = new RSACryptoServiceProvider(1024);
-            //var publicKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(rsaServer, false);
-            //var rsaClient = new RSACryptoServiceProvider(1024);
-            //rsaClient.FromXmlString(publicKeyXml);
             var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
             var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             update_log(name, "User Requested Public Key");
-            return new ObjectResult(generate_public_key());
+            Singleton.MySingleton mySingleton = Singleton.MySingleton.Instance;
+            var publicKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(mySingleton.provider, false);
+            return new ObjectResult(publicKeyXml);
 
         }
         [HttpGet]
@@ -108,7 +107,8 @@ namespace DistSysACW.Controllers
         {
             DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor();
             byte[]data = decrptor.string_to_ascii(message);
-            var pKey = generate_private_key();
+            Singleton.MySingleton mySingleton = Singleton.MySingleton.Instance;
+            var pKey = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(mySingleton.provider, true);
             byte[] signed_data = decrptor.HashAndSignBytes(data, pKey);//sha1
             var hex_return = decrptor.ByteArrayToHexString(signed_data);
             var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;

@@ -230,19 +230,6 @@ namespace DistSysACW.Controllers
             _cntxt.SaveChanges();
             return "deleted";
         }
-        //---------------------------------GENERATE PUBLIC KEY-------------------//
-        
-        public dynamic generate_public_key()
-        {
-                var publicKeyXml =Middleware.AuthMiddleware.publicxml;
-                return publicKeyXml;
-        }
-        //--------------------------------GENERATE PRIVATE KEY------------------//
-        public dynamic generate_private_key()
-        { 
-            var privateKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(Middleware.AuthMiddleware.rsaServer, true);
-            return privateKeyXml;
-        }
         //-------------------------------update log---------------------------------------
         public void update_log(string name, string action)
         {

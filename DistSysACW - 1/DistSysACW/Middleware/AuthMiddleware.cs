@@ -16,10 +16,8 @@ namespace DistSysACW.Middleware
     public class AuthMiddleware
     {
         private readonly RequestDelegate _next;
-        public static int count = 0;  //public key init
-        public static dynamic publicxml;
-        //public static dynamic rsaServer = new RSACryptoServiceProvider(1024);
-        public  static RSACryptoServiceProvider rsaServer = new RSACryptoServiceProvider();
+
+
         public AuthMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -64,14 +62,10 @@ namespace DistSysACW.Middleware
                     Thread.CurrentPrincipal = claimsPrincipal;
                     context.User = claimsPrincipal; //Assigns principal to current HTTP context(I was just missing this lol)
                     //used to get current claims and principles
-                    count += 1;
-                }
-                if (count < 2)
-                {
                     
-                    var publicKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(rsaServer, false);
-                    publicxml = publicKeyXml;
                 }
+               
+
             }
             // Call the next delegate/middleware in the pipeline
             await _next(context);

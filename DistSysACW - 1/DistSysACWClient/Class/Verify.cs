@@ -7,18 +7,6 @@ namespace DistSysACWClient.Class
 {
     public class Verify
     {
-        //public bool VerifyHash(RSAParameters rsaParams, byte[] signedData, dynamic signature)
-        //{
-        //    RSACryptoServiceProvider rsaCSP = new RSACryptoServiceProvider();
-        //    SHA1Managed hash = new SHA1Managed();
-        //    byte[] hashedData;
-        //    CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(rsaCSP, signature);
-        //    //rsaCSP.ImportParameters(rsaParams);
-        //    bool dataOK = rsaCSP.VerifyData(signedData, CryptoConfig.MapNameToOID("SHA1"), signature);
-        //    hashedData = hash.ComputeHash(signedData);
-        //    return rsaCSP.VerifyHash(hashedData, CryptoConfig.MapNameToOID("SHA1"), signature);
-        //}
-
         public  bool VerifySignedHash(byte[] OriginalData, byte[] SignedData, dynamic Key)
         {
             try
