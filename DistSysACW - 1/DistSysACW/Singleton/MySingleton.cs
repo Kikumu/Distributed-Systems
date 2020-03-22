@@ -17,7 +17,7 @@ namespace DistSysACW.Singleton
     public class MySingleton
     {
 
-        private static MySingleton instance =null;
+        private static MySingleton instance = null;
         private MySingleton() { }
 
         public static MySingleton Instance

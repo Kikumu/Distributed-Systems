@@ -14,7 +14,7 @@ namespace DistSysACWClient.Class
                 bool f = true;
                 RSACryptoServiceProvider RSAalg = new RSACryptoServiceProvider();
                 CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(RSAalg, Key);
-                f = RSAalg.VerifyData(OriginalData, new SHA1CryptoServiceProvider(), SignedData);
+                f = RSAalg.VerifyData(OriginalData, new SHA1Managed(), SignedData);
                 return f;
             }
             catch (CryptographicException e)
