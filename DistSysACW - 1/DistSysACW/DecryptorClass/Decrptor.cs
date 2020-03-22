@@ -19,21 +19,28 @@ namespace DistSysACW.DecryptorClass
             return encodedBytes;
         }
         //----------------------------------------------CONVERTS BYTE ARRAY TO HEX STRING--------------------------------------------------------------//
-        public string ByteArrayToHexString(byte[] byteArray)
-        {
-            string hexString = "";
-            if (null != byteArray)
-            {
-                foreach (byte b in byteArray)
-                {
+        //public string ByteArrayToHexString(byte[] byteArray)
+        //{
+        //    string hexString = "";
+        //    if (null != byteArray)
+        //    {
+        //        foreach (byte b in byteArray)
+        //        {
 
-                    //hexString += (b + 6).ToString("x2"); //the +6 is the salt 
-                   // hexString += "-";
-                    hexString += (b).ToString("x2"); //the +6 is the salt 
-                }
-            }
-            return hexString;
+        //            //hexString += (b + 6).ToString("x2"); //the +6 is the salt 
+        //           // hexString += "-";
+        //            hexString += (b).ToString("x2"); //the +6 is the salt 
+        //            hexString += "-";
+        //        }
+        //    }
+        //    return hexString;
+        //}
+
+        public  string ByteArrayToHexString(byte[] ba)
+        {
+            return BitConverter.ToString(ba);
         }
+
         //------------------------------------------ENCRYPTOR-------------------------------------------------------------------------------------------------//
         public byte[] RSAEncrypt(byte[] DataToEncrypt, RSAParameters RSAKeyInfo)
         {
@@ -94,7 +101,7 @@ namespace DistSysACW.DecryptorClass
             try
             {
                 //Singleton.MySingleton mySingleton = Singleton.MySingleton.Instance;
-                RSACryptoServiceProvider rSACrypto = Singleton.SingletonPattern.Instance;
+                RSACryptoServiceProvider rSACrypto = Singleton.SingletonPattern.Instance;       //calls rsa instance
                 //CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(mySingleton.provider,Key);
                 CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(rSACrypto, Key);
                 return rSACrypto.SignData(DataToSign, new SHA1Managed());

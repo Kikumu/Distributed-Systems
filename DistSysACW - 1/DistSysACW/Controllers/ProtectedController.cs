@@ -95,9 +95,8 @@ namespace DistSysACW.Controllers
             var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
             var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             update_log(name, "User Requested Public Key");
-            RSACryptoServiceProvider rSACrypto = Singleton.SingletonPattern.Instance;
-            string publicKeyXml = Singleton.SingletonPattern.Instance_2;
-            //string publicKeyXml = CoreExtensions.RSACryptoExtensions.ToXmlStringCore22(rSACrypto, false);
+            RSACryptoServiceProvider rSACrypto = Singleton.SingletonPattern.Instance;  //calls rsa instance
+            string publicKeyXml = Singleton.SingletonPattern.Instance_2;              //calls public key instance
             return new ObjectResult(publicKeyXml);
 
         }
@@ -108,8 +107,8 @@ namespace DistSysACW.Controllers
         {
             DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor();
             byte[]data = decrptor.string_to_ascii(message);
-            string pKey = Singleton.SingletonPattern.Instance_3;
-            byte[] signed_data = decrptor.HashAndSignBytes(data, pKey);//sha1
+            string pKey = Singleton.SingletonPattern.Instance_3;             //calls private key instance
+            byte[] signed_data = decrptor.HashAndSignBytes(data, pKey);      //sha1
             string hex_return = decrptor.ByteArrayToHexString(signed_data);
 
 

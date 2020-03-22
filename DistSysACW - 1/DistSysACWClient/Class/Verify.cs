@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Collections.Generic;
 
 namespace DistSysACWClient.Class
 {
@@ -31,8 +32,9 @@ namespace DistSysACWClient.Class
             return encodedBytes;
         }
 
-        public  byte[] StringToByteArray(String hex)
+        public  byte[] StringToByteArray(string hex)
         {
+            hex = hex.Replace("-", "");
             int NumberChars = hex.Length;
             byte[] bytes = new byte[NumberChars / 2];
             for (int i = 0; i < NumberChars; i += 2)

@@ -19,11 +19,13 @@ namespace DistSysACW.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer
-                (
-                @"Server=(localdb)\mssqllocaldb;Database=DistSysACW2;",
-                options => options.EnableRetryOnFailure());
-            base.OnConfiguring(optionsBuilder);
+            //optionsBuilder.UseSqlServer
+            //    (
+            //    @"Server=(localdb)\mssqllocaldb;Database=DistSysACW2;",
+            //    options => options.EnableRetryOnFailure());
+            //base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DistSysACW2;");
         }
     }
 }
