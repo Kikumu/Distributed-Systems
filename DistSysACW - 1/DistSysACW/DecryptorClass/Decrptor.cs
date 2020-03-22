@@ -14,7 +14,7 @@ namespace DistSysACW.DecryptorClass
         public byte[] string_to_ascii(string Message)  //just takes string and converts to ascii
         {
             ASCIIEncoding ascii = new ASCIIEncoding();
-            Byte[] encodedBytes = ascii.GetBytes(Message);
+            byte[] encodedBytes = ascii.GetBytes(Message);
 
             return encodedBytes;
         }
@@ -27,8 +27,9 @@ namespace DistSysACW.DecryptorClass
                 foreach (byte b in byteArray)
                 {
 
-                    hexString += (b + 6).ToString("x2"); //the +6 is the salt 
-                    hexString += "-";
+                    //hexString += (b + 6).ToString("x2"); //the +6 is the salt 
+                   // hexString += "-";
+                    hexString += (b).ToString("x2"); //the +6 is the salt 
                 }
             }
             return hexString;

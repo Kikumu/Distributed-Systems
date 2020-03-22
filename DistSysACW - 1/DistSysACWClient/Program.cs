@@ -113,9 +113,9 @@ namespace DistSysACWClient
                     Class.Verify verify = new Class.Verify();
                     Class.Tasks.TalkbackProtectedPrivate_key(tokens[2]).Wait();
                     byte[] data = verify.string_to_ascii(tokens[2]); //original data
-                    var data2 = Class.Tasks.Data_verify; //Signed data from server
-                    byte[] data2_1 = verify.string_to_ascii(data2);//Signed data from server in bytes
-                    var data3 = Class.Tasks.pKey; //server public key
+                    string data2 = Class.Tasks.Data_verify; //Signed data from server
+                    byte[] data2_1 = verify.StringToByteArray(data2);//Signed data from server in bytes
+                    string data3 = Class.Tasks.pKey; //server public key
                     bool confirm = verify.VerifySignedHash(data, data2_1, data3);
                     Console.WriteLine("Confirmation: " + confirm);
                     choice = Console.ReadLine();

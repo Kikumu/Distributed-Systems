@@ -15,7 +15,7 @@ namespace DistSysACWClient.Class
     {
         static HttpClient client = new HttpClient();
         public static string Data_verify;
-        public static dynamic pKey;
+        public static string pKey;
         // UserClass user = new UserClass();
         public static string api_key = "";
         //-----------------------------------------------------------------------TALKBACK HELLO---------------------------------------------------------------------------//
