@@ -120,6 +120,25 @@ namespace DistSysACWClient
                     Console.WriteLine("Confirmation: " + confirm);
                     choice = Console.ReadLine();
                 }
+                //-----------------------------ADD FIFTEA------------------------------------------------//
+                else if(choice.Contains("Add")==true && choice.Contains("Fifty") == true)
+                {
+                    Class.Verify verify = new Class.Verify();
+                    
+                    string[] tokens = choice.Split(' ');
+            
+                    string server_public = Class.Tasks.pKey;//server_public public key
+                    //convert original into into a byte array first
+                    byte[] data = verify.string_to_ascii(tokens[2]); //original data
+                    //sign using key
+                    byte[] signed = verify.HashAndSignBytes(data, server_public);
+                    //convert to hex
+                    string hex = verify.ByteArrayToHexString(signed);
+                    //create and encrypt symmetric key
+
+
+
+                }
                 else
                 {
                     Console.WriteLine("BAD COMMAND");

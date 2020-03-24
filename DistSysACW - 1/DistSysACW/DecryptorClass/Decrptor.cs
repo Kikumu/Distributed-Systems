@@ -19,66 +19,12 @@ namespace DistSysACW.DecryptorClass
             return encodedBytes;
         }
         //----------------------------------------------CONVERTS BYTE ARRAY TO HEX STRING--------------------------------------------------------------//
-        //public string ByteArrayToHexString(byte[] byteArray)
-        //{
-        //    string hexString = "";
-        //    if (null != byteArray)
-        //    {
-        //        foreach (byte b in byteArray)
-        //        {
-
-        //            //hexString += (b + 6).ToString("x2"); //the +6 is the salt 
-        //           // hexString += "-";
-        //            hexString += (b).ToString("x2"); //the +6 is the salt 
-        //            hexString += "-";
-        //        }
-        //    }
-        //    return hexString;
-        //}
-
         public  string ByteArrayToHexString(byte[] ba)
         {
             return BitConverter.ToString(ba);
         }
 
         //------------------------------------------ENCRYPTOR-------------------------------------------------------------------------------------------------//
-        public byte[] RSAEncrypt(byte[] DataToEncrypt, RSAParameters RSAKeyInfo)
-        {
-            try
-            {
-                byte[] encryptedData; using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-                {
-
-                    RSA.ImportParameters(RSAKeyInfo); encryptedData = RSA.Encrypt(DataToEncrypt, false);
-                }
-                return encryptedData;
-            }
-            catch (CryptographicException e) 
-            {
-                Console.WriteLine(e.Message);
-                return null;
-            }
-        }
-        //------------------------------------------DECRYPTOR------------------------------------------------------------------------------------------------//
-        public byte[] RSADecrypt(byte[] DataToDecrypt, RSAParameters RSAKeyInfo)
-        {
-            try
-            {
-                byte[] decryptedData;
-                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-                {
-                    RSA.ImportParameters(RSAKeyInfo);
-                    decryptedData = RSA.Decrypt(DataToDecrypt, false);
-                }
-                return decryptedData;
-            }
-            catch (CryptographicException e)
-            {
-                Console.WriteLine(e.ToString());
-                return null;
-            }
-        }
-
         public byte[] SHA256_Encrypt(byte[] message)
         {
             byte[] sha256ByteMessage;
@@ -113,9 +59,16 @@ namespace DistSysACW.DecryptorClass
                 return null;
             }
         }
-        //-----------------------------------verify
-       
-
+        //-----------------------------------hex2byte
+        public byte[] hex2byte(string hex)
+        {
+            hex = hex.Replace("-", "");
+            int NumberChars = hex.Length;
+            byte[] bytes = new byte[NumberChars / 2];
+            for (int i = 0; i < NumberChars; i += 2)
+                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            return bytes;
+        }
     }
 }
 

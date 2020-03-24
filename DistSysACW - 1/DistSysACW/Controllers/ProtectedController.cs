@@ -117,5 +117,13 @@ namespace DistSysACW.Controllers
             update_log(name, "User Signed a message using private key");
             return new ObjectResult(hex_return);
         }
+        [HttpGet]
+        [ActionName("AddFifty")]
+        [Authorize(Roles ="Admin")]
+        public ActionResult AddEncryptedIntegers(string encrpted_integer,string symmetric_key,string initialization_vector)
+        {
+
+            return new ObjectResult("notImplemented");
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
-using System.Collections.Generic;
+
 
 namespace DistSysACWClient.Class
 {
@@ -31,7 +31,7 @@ namespace DistSysACWClient.Class
             byte[] encodedBytes = ascii.GetBytes(Message);
             return encodedBytes;
         }
-
+         //--------------------hex2byte-----------------------------------
         public  byte[] StringToByteArray(string hex)
         {
             hex = hex.Replace("-", "");
@@ -41,5 +41,30 @@ namespace DistSysACWClient.Class
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
             return bytes;
         }
+
+        //-------------------------------------------------HASH AND SIGN DATA--------------------------------------------------------//
+        public byte[] HashAndSignBytes(byte[] DataToSign, string Key)
+        {
+            try
+            {
+                
+                RSACryptoServiceProvider rSACrypto = new RSACryptoServiceProvider();    //calls rsa instance
+                
+                CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(rSACrypto, Key);
+                return rSACrypto.SignData(DataToSign, new SHA1Managed());
+            }
+            catch (CryptographicException e)
+            {
+                Console.WriteLine(e.Message);
+
+                return null;
+            }
+        }
+        //-------------byte2hex
+        public string ByteArrayToHexString(byte[] ba)
+        {
+            return BitConverter.ToString(ba);
+        }
+
     }
 }
