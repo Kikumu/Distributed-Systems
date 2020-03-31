@@ -73,9 +73,11 @@ namespace DistSysACW.Controllers
         //---------------------------------- IMPLIMENTED(Change role)----------------------------------------------------------------------------------//
         public ActionResult change_role([FromBody]string test)
         {
+
+            DistSysACWClient.Class.ObjectJsonSerialiser roleObj = JsonConvert.DeserializeObject<DistSysACWClient.Class.ObjectJsonSerialiser>(test);
+            string name = roleObj.name;
+            string role = roleObj.role;
             string temp_ = "";
-            string role = "";
-            string name = "";
             if (role == "user")
                 temp_ = update_role_to_user(name);
             else if(role =="Admin")

@@ -17,7 +17,7 @@ namespace DistSysACWClient.Class
         public static string Data_verify;
         public static string pKey;
         // UserClass user = new UserClass();
-        public static string api_key = "";
+        public static string api_key = "1";
         //-----------------------------------------------------------------------TALKBACK HELLO---------------------------------------------------------------------------//
         public static async Task<string> TalkbackHello()
         {
@@ -147,6 +147,28 @@ namespace DistSysACWClient.Class
             return resp;
         }
         //----------------------------------------JUST RETURNS API--------------------------------------------------------------------//
+        public static async Task<string>TalkbackChangeRole()
+        {
+            string usrnme = "scott";
+            string usrole = "Admin";
+            Class.ObjectJsonSerialiser objectJson = new Class.ObjectJsonSerialiser();
+            objectJson.name = usrnme;
+            objectJson.role = usrole;
+            string z = JsonConvert.SerializeObject(objectJson);
+            z = JsonConvert.SerializeObject(z);
+            HttpRequestMessage httpRequest = new HttpRequestMessage();
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/ChangeRole");
+            httpRequest.Method = HttpMethod.Post;
+            httpRequest.Headers.Add("apikey", return_api());
+            var stringContent = new StringContent(z, Encoding.UTF8, "application/json");   //conversion to json string
+            httpRequest.Content = stringContent;
+            HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
+            string resp = await httpResponse.Content.ReadAsStringAsync();
+            //api_key = resp;
+            
+            Console.WriteLine(resp);
+            return resp;
+        }
         public static string return_api()
         {
             return api_key;

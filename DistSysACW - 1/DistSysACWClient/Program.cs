@@ -135,9 +135,17 @@ namespace DistSysACWClient
                     //convert to hex
                     string hex = verify.ByteArrayToHexString(signed);
                     //create and encrypt symmetric key
-
-
-
+                }
+                else if(choice.Contains("User")==true && choice.Contains("Role") == true)
+                {
+                    //string usrnme = "scott";
+                    //string usrole = "Admin";
+                    //Class.ObjectJsonSerialiser objectJson= new Class.ObjectJsonSerialiser();
+                    //objectJson.name = usrnme;
+                    //objectJson.role = usrole;
+                    //string jsonData = JsonConvert.SerializeObject(objectJson);
+                    Class.Tasks.TalkbackChangeRole().Wait();
+                    choice = Console.ReadLine();
                 }
                 else
                 {
