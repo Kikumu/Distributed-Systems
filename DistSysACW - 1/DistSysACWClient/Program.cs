@@ -67,58 +67,110 @@ namespace DistSysACWClient
                 //------------------------------------DELETEUSER-------------------------------------------------------------//
                 else if (choice.Contains("Delete") == true && choice.Contains("User") == true)
                 {
-                    Console.WriteLine("Please wait....");
-                    user.user_name = "amples";
-                    string json = user.user_name;
-                    Class.Tasks.TalkbackDeleteUser(json).Wait();
-                    choice = Console.ReadLine();
+                    if (Class.Tasks.api_key == null || Class.Tasks.api_key == "")
+                    {
+                        Console.WriteLine("You need to do a User Post or User Set first");
+                        choice = Console.ReadLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please wait....");
+                        user.user_name = "amples";
+                        string json = user.user_name;
+                        Class.Tasks.TalkbackDeleteUser(json).Wait();
+                        choice = Console.ReadLine();
+                    }
+                   
                 }
                 //-----------------------------------PROTECTED HELLO--------------------------------------------------------//
                 else if (choice.Contains("Protected") == true && choice.Contains("Hello") == true)
                 {
-                    Console.WriteLine("Please wait....");
-                    Class.Tasks.TalkbackProtectedHello().Wait();
-                    choice = Console.ReadLine();
+                    if (Class.Tasks.api_key == null || Class.Tasks.api_key == "")
+                    {
+                        Console.WriteLine("You need to do a User Post or User Set first");
+                        choice = Console.ReadLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please wait....");
+                        Class.Tasks.TalkbackProtectedHello().Wait();
+                        choice = Console.ReadLine();
+                    }
+                   
                 }
                 //-----------------------------------PROTECTEDSHA1----------------------------------------------------------//
                 else if (choice.Contains("Protected") == true && choice.Contains("SHA1") == true)
                 {
-                    Console.WriteLine("Please wait....");
-                    string[] tokens = choice.Split(' ');
-                    Class.Tasks.TalkbackProtectedSHA1(tokens[2]).Wait();
-                    choice = Console.ReadLine();
-
+                    if (Class.Tasks.api_key == null || Class.Tasks.api_key == "")
+                    {
+                        Console.WriteLine("You need to do a User Post or User Set first");
+                        choice = Console.ReadLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please wait....");
+                        string[] tokens = choice.Split(' ');
+                        Class.Tasks.TalkbackProtectedSHA1(tokens[2]).Wait();
+                        choice = Console.ReadLine();
+                    }
                 }
                 //------------------------------protected256---------------------------------------------------------------//
                 else if (choice.Contains("Protected") == true && choice.Contains("SHA256") == true)
                 {
-                    Console.WriteLine("Please wait....");
-                    string[] tokens = choice.Split(' ');
-                    Class.Tasks.TalkbackProtectedSHA256(tokens[2]).Wait();
-                    choice = Console.ReadLine();
+                    if (Class.Tasks.api_key == null || Class.Tasks.api_key == "")
+                    {
+                        Console.WriteLine("You need to do a User Post or User Set first");
+                        choice = Console.ReadLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please wait....");
+                        string[] tokens = choice.Split(' ');
+                        Class.Tasks.TalkbackProtectedSHA256(tokens[2]).Wait();
+                        choice = Console.ReadLine();
+                    }
+                    
                 }
                 //------------------------------PUBLIC KEY-----------------------------------------------------------------//
                 else if (choice.Contains("Protected") == true && choice.Contains("Get") == true)
                 {
-                    Console.WriteLine("Please wait....");
-                    Class.Tasks.TalkbackProtectedPublic_key().Wait();
-                    choice = Console.ReadLine();
+                    if (Class.Tasks.api_key == null || Class.Tasks.api_key == "")
+                    {
+                        Console.WriteLine("You need to do a User Post or User Set first");
+                        choice = Console.ReadLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please wait....");
+                        Class.Tasks.TalkbackProtectedPublic_key().Wait();
+                        choice = Console.ReadLine();
+                    }
+                   
                 }
                 //--------------------------------PRIVATE SIGNED--------------------------------------//
                 else if(choice.Contains("Protected")==true && choice.Contains("Sign") == true)
                 {
-                    //REMEMBER TO GET PUBLIC KEY FIRST
-                    Console.WriteLine("Please wait....");
-                    string[] tokens = choice.Split(' ');
-                    Class.Verify verify = new Class.Verify();
-                    Class.Tasks.TalkbackProtectedPrivate_key(tokens[2]).Wait();
-                    byte[] data = verify.string_to_ascii(tokens[2]); //original data
-                    string data2 = Class.Tasks.Data_verify; //Signed data from server
-                    byte[] data2_1 = verify.StringToByteArray(data2);//Signed data from server in bytes
-                    string data3 = Class.Tasks.pKey; //server public key
-                    bool confirm = verify.VerifySignedHash(data, data2_1, data3);
-                    Console.WriteLine("Confirmation: " + confirm);
-                    choice = Console.ReadLine();
+                    if (Class.Tasks.api_key == null || Class.Tasks.api_key == "")
+                    {
+                        Console.WriteLine("You need to do a User Post or User Set first");
+                        choice = Console.ReadLine();
+                    }
+                    else
+                    {
+                        //REMEMBER TO GET PUBLIC KEY FIRST
+                        Console.WriteLine("Please wait....");
+                        string[] tokens = choice.Split(' ');
+                        Class.Verify verify = new Class.Verify();
+                        Class.Tasks.TalkbackProtectedPrivate_key(tokens[2]).Wait();
+                        byte[] data = verify.string_to_ascii(tokens[2]); //original data
+                        string data2 = Class.Tasks.Data_verify; //Signed data from server
+                        byte[] data2_1 = verify.StringToByteArray(data2);//Signed data from server in bytes
+                        string data3 = Class.Tasks.pKey; //server public key
+                        bool confirm = verify.VerifySignedHash(data, data2_1, data3);
+                        Console.WriteLine("Confirmation: " + confirm);
+                        choice = Console.ReadLine();
+                    }
+                   
                 }
                 //-----------------------------ADD FIFTEA------------------------------------------------//
                 else if(choice.Contains("Add")==true && choice.Contains("Fifty") == true)
@@ -139,8 +191,17 @@ namespace DistSysACWClient
                 //---------------------------CHANGE ROLE------------------------------------------------------//
                 else if(choice.Contains("User")==true && choice.Contains("Role") == true)
                 {
-                    Class.Tasks.TalkbackChangeRole("pyro", "user").Wait();
-                    choice = Console.ReadLine();
+                    if(Class.Tasks.api_key == null || Class.Tasks.api_key == "")
+                    {
+                        Console.WriteLine("You need to do a User Post or User Set first");
+                        choice = Console.ReadLine();
+                    }
+                    else
+                    {
+                        Class.Tasks.TalkbackChangeRole("pyro", "user").Wait();
+                        choice = Console.ReadLine();
+                    }
+                   
                 }
                 //----------------------------------USER SET CLIENT FUNCTIONALITY------------------------------------//
                 else if(choice.Contains("User")==true && choice.Contains("Set") == true)

@@ -208,9 +208,7 @@ namespace DistSysACW.Controllers
 
 
         }
-      
-
-
+   
         //----------------------------------DELETE ROLE FUNCTION. WORKS BUT PARTIALLY IMPLEMENTED------------------------------------------------------------------//
         public string delete_user(string name)
         {
