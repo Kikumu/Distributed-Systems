@@ -73,17 +73,46 @@ namespace DistSysACW.Controllers
         //---------------------------------- IMPLIMENTED(Change role)----------------------------------------------------------------------------------//
         public ActionResult change_role([FromBody]string test)
         {
-
-            DistSysACWClient.Class.ObjectJsonSerialiser roleObj = JsonConvert.DeserializeObject<DistSysACWClient.Class.ObjectJsonSerialiser>(test);
-            string name = roleObj.name;
-            string role = roleObj.role;
             string temp_ = "";
-            if (role == "user")
-                temp_ = update_role_to_user(name);
-            else if(role =="Admin")
-                temp_ = update_role_to_admin(name);
+            try {
+                DistSysACWClient.Class.ObjectJsonSerialiser roleObj = JsonConvert.DeserializeObject<DistSysACWClient.Class.ObjectJsonSerialiser>(test);
+                string name = roleObj.name;
+                string role = roleObj.role;
+
+                if (role == "Admin")
+                {
+                    temp_ = update_role(name, role);
+                    if (temp_ == "Unavailable")
+                    {
+                        this.Response.StatusCode = 400;
+                        temp_ = "NOT DONE: Username does not exist";
+                    }
+                    else
+                        this.Response.StatusCode = 200;
+
+                }
+                else if (role == "user")
+                {
+                    temp_ = update_role(name, role);
+                    if (temp_ == "Unavailable")
+                    {
+                        this.Response.StatusCode = 400;
+                        temp_ = "NOT DONE: Username does not exist";
+                    }
+                    else
+                        this.Response.StatusCode = 200;
+                }
+                else
+                {
+                    this.Response.StatusCode = 400;
+                    temp_ = "NOT DONE: Role does not exist";
+                }
+            }
+            catch {
+                this.Response.StatusCode = 400;
+                temp_ = "NOT DONE: An error occured";
+            }
             return new ObjectResult(temp_);
-          
         }
         
         [HttpDelete]
@@ -92,10 +121,13 @@ namespace DistSysACW.Controllers
         //------------------------------- IMPLEMENTED(delete user(LOL its supposed to be a delete request))-----------------------------------------//
         public ActionResult delete_user_data([FromQuery]string name)
         {
-            string temp = "";
+            string temp = name;
             temp = delete_user(name);
             if (temp == "deleted")
                 temp = "True";
+            else
+                temp = "False";
+
             return new ObjectResult(temp);
         }
         // PUT: api/User/5

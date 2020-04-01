@@ -181,7 +181,7 @@ namespace DistSysACW.Controllers
         }
 
         //------------------------------------UPDATING ROLE FUNCTION. WORKS------------------------------------//
-        public string update_role_to_admin(string name)
+        public string update_role(string name, string role)
         {
             string rslt = "";
             var _names = context.Users;
@@ -196,9 +196,9 @@ namespace DistSysACW.Controllers
             {
                 var _cntxt = new Models.UserContext();
                 var t_name = _cntxt.Users.Where(u => u.user_name == name).First();
-                t_name.role = "Admin";
+                t_name.role = role;
                 _cntxt.SaveChanges();
-                rslt = "Changed";
+                rslt = "DONE";
             }
             else
             {
@@ -208,16 +208,7 @@ namespace DistSysACW.Controllers
 
 
         }
-        //------------------------------------------------UPDATE TO USER----------------------------------------------------//
-
-        public string update_role_to_user(string name)
-        {
-            var _cntxt = new Models.UserContext();
-            var t_name = _cntxt.Users.Where(u => u.user_name == name).First();
-            t_name.role = "User";
-            _cntxt.SaveChanges();
-            return "Changed";
-        }
+      
 
 
         //----------------------------------DELETE ROLE FUNCTION. WORKS BUT PARTIALLY IMPLEMENTED------------------------------------------------------------------//

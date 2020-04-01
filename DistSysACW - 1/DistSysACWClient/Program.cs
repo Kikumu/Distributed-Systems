@@ -136,16 +136,16 @@ namespace DistSysACWClient
                     string hex = verify.ByteArrayToHexString(signed);
                     //create and encrypt symmetric key
                 }
+                //---------------------------CHANGE ROLE------------------------------------------------------//
                 else if(choice.Contains("User")==true && choice.Contains("Role") == true)
                 {
-                    //string usrnme = "scott";
-                    //string usrole = "Admin";
-                    //Class.ObjectJsonSerialiser objectJson= new Class.ObjectJsonSerialiser();
-                    //objectJson.name = usrnme;
-                    //objectJson.role = usrole;
-                    //string jsonData = JsonConvert.SerializeObject(objectJson);
-                    Class.Tasks.TalkbackChangeRole().Wait();
+                    Class.Tasks.TalkbackChangeRole("pyro", "user").Wait();
                     choice = Console.ReadLine();
+                }
+                //----------------------------------USER SET CLIENT FUNCTIONALITY------------------------------------//
+                else if(choice.Contains("User")==true && choice.Contains("Set") == true)
+                {
+
                 }
                 else
                 {
