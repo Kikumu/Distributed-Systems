@@ -128,7 +128,7 @@ namespace DistSysACWClient.Class
             httpRequest.Headers.Add("apikey", return_api());      //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
-            Console.WriteLine(resp);
+            Console.WriteLine("Got Public Key");
             pKey = resp;
             return resp;
         }

@@ -8,21 +8,26 @@ namespace DistSysACWClient.Class
 {
     public class Verify
     {
-        public  bool VerifySignedHash(byte[] OriginalData, byte[] SignedData, string Key)
+        public  string VerifySignedHash(byte[] OriginalData, byte[] SignedData, string Key)
         {
             try
             {
                 bool f = true;
+                string message;
                 RSACryptoServiceProvider RSAalg = new RSACryptoServiceProvider();
                 CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(RSAalg, Key);
                 f = RSAalg.VerifyData(OriginalData, new SHA1Managed(), SignedData);
-                return f;
+                if (f == true)
+                    message = "Message was successfully signed";
+                else
+                    message = "Message was not succesfully signed";
+                return message;
             }
             catch (CryptographicException e)
             {
                 Console.WriteLine(e.Message);
-
-                return false;
+                string message = "Client doesnt have the public key";
+                return message;
             }
         }
         public byte[] string_to_ascii(string Message)  //just takes string and converts to ascii
