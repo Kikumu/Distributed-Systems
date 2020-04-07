@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using System.Security.Claims;
+using System.Threading;
 
 namespace DistSysACW.Controllers
 {
@@ -73,6 +75,8 @@ namespace DistSysACW.Controllers
         //---------------------------------- IMPLIMENTED(Change role)----------------------------------------------------------------------------------//
         public ActionResult change_role([FromBody]string test)
         {
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            string name1 = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             string temp_ = "";
             try {
                 DistSysACWClient.Class.ObjectJsonSerialiser roleObj = JsonConvert.DeserializeObject<DistSysACWClient.Class.ObjectJsonSerialiser>(test);
@@ -86,10 +90,13 @@ namespace DistSysACW.Controllers
                     {
                         this.Response.StatusCode = 400;
                         temp_ = "NOT DONE: Username does not exist";
+                        update_log(name1, "Role Update Failed");
                     }
                     else
+                    {
                         this.Response.StatusCode = 200;
-
+                        update_log(name1, "Role Update Succesfull. "+name1+", changed "+name+"'s role to "+role);
+                    }
                 }
                 else if (role == "user")
                 {
@@ -98,19 +105,26 @@ namespace DistSysACW.Controllers
                     {
                         this.Response.StatusCode = 400;
                         temp_ = "NOT DONE: Username does not exist";
+                        update_log(name1, "Role Update Failed");
                     }
                     else
+                    {
                         this.Response.StatusCode = 200;
+                        update_log(name1, "Role Update Succesfull. " + name1 + ", changed " + name + "'s role to " + role);
+                    }
+                        
                 }
                 else
                 {
                     this.Response.StatusCode = 400;
                     temp_ = "NOT DONE: Role does not exist";
+                    update_log(name1, "Role Update Failed");
                 }
             }
             catch {
                 this.Response.StatusCode = 400;
                 temp_ = "NOT DONE: An error occured";
+                update_log(name1, "Role Update Failed");
             }
             return new ObjectResult(temp_);
         }

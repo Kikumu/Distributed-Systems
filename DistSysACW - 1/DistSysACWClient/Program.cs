@@ -232,22 +232,45 @@ namespace DistSysACWClient
                 //---------------------------CHANGE ROLE------------------------------------------------------//
                 else if(choice.Contains("User")==true && choice.Contains("Role") == true)
                 {
-                    if(Class.Tasks.api_key == null || Class.Tasks.api_key == "")
+                    string username = null;
+                    string role = null;
+
+                    try
                     {
-                        Console.WriteLine("You need to do a User Post or User Set first");
-                        choice = Console.ReadLine();
+                        if (Class.Tasks.api_key == null || Class.Tasks.api_key == "")
+                        {
+                            Console.WriteLine("You need to do a User Post or User Set first");
+                            choice = Console.ReadLine();
+                        }
+                        else
+                        {
+                            string[] tokens = choice.Split(' ');
+                            username = tokens[2];
+                            role = tokens[3];
+                            Class.Tasks.TalkbackChangeRole(username, role).Wait();
+                        }
                     }
-                    else
+                    catch
                     {
-                        Class.Tasks.TalkbackChangeRole("pyro", "user").Wait();
-                        choice = Console.ReadLine();
+                        Console.WriteLine("An error occured");
                     }
-                   
+
+                    choice = Console.ReadLine();
                 }
                 //----------------------------------USER SET CLIENT FUNCTIONALITY------------------------------------//
                 else if(choice.Contains("User")==true && choice.Contains("Set") == true)
                 {
-
+                    try {
+                        string[] tokens = choice.Split(' ');
+                        Class.Tasks.api_key = tokens[2];
+                        Console.WriteLine("Stored");
+                        //tokens[2]
+                    }
+                    catch
+                    {
+                        Console.WriteLine("An error occured");
+                    }
+                    choice = Console.ReadLine();
                 }
                 else
                 {
