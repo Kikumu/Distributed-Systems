@@ -141,7 +141,13 @@ namespace DistSysACWClient.Class
             httpRequest.Headers.Add("apikey", return_api());      //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
-            Console.WriteLine(resp);
+            if (resp != "Bad Request")
+            {
+                Console.WriteLine(resp);
+                Console.WriteLine("Message successfully signed");
+            }  
+            else
+                Console.WriteLine("Message was not successfully signed");
             Data_verify = resp;
             return resp;
         }
@@ -177,10 +183,15 @@ namespace DistSysACWClient.Class
             httpRequest.Headers.Add("apikey", return_api());        //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
-            Console.WriteLine("Encrypted string:"+resp);
-            byte[] encrypted_data = verify.StringToByteArray(resp);
-            string aes_decrypted_data = aES_Functions.DecryptStringFromBytes_Aes(encrypted_data, decrypt_aes, decrypt_iv);
-            Console.WriteLine("Decrypted string:" + aes_decrypted_data);
+            if (resp != "Bad Request")
+            {
+                Console.WriteLine("Encrypted string:" + resp);
+                byte[] encrypted_data = verify.StringToByteArray(resp);
+                string aes_decrypted_data = aES_Functions.DecryptStringFromBytes_Aes(encrypted_data, decrypt_aes, decrypt_iv);
+                Console.WriteLine("Decrypted string:" + aes_decrypted_data);
+            }
+            else
+                Console.WriteLine("An error occurred!");
             return resp;
         }
         //------------------------------------------------JUST RETURNS APPI KEY---------------------------------------------------------------//

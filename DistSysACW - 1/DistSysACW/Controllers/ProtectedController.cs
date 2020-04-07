@@ -51,20 +51,30 @@ namespace DistSysACW.Controllers
         [Authorize(Roles = "Admin,user")]
         public ActionResult security1([FromQuery]string message)
         {
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             string msg = "";
-            if (message == null || message == "")
+            try
+            {
+                if (message == null || message == "")
+                {
+                    this.Response.StatusCode = 400;
+                    msg = "BAD REQUEST";
+                }
+                else
+                {
+                    this.Response.StatusCode = 200;
+                    msg = encrypt_SHA1(message);
+                    update_log(name, "User Requested Protected SHA1");
+                }
+            }
+            catch
             {
                 this.Response.StatusCode = 400;
                 msg = "BAD REQUEST";
+                update_log(name, "User Requested Protected SHA1 FAILED");
             }
-            else
-            {
-
-                msg = encrypt_SHA1(message);
-                var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
-                var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
-                update_log(name, "User Requested Protected SHA1");
-            }
+           
             return new ObjectResult(msg);
         }
         [HttpGet]
@@ -72,19 +82,30 @@ namespace DistSysACW.Controllers
         [Authorize(Roles = "Admin,user")]
         public ActionResult security2([FromQuery]string message)
         {
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
             string msg = "";
-            if(message == null || message == "")
+            try
             {
+                if (message == null || message == "")
+                {
+                    this.Response.StatusCode = 400;
+                    msg = "BAD REQUEST";
+                    update_log(name, "User Requested Protected SHA256 FAILED");
+                }
+                else
+                {
+                    msg = encrypt_SHA256(message);
+                    update_log(name, "User Requested Protected SHA256");
+                }
+            }
+            catch
+            {
+                update_log(name, "User Requested Protected SHA256 FAILED");
                 this.Response.StatusCode = 400;
                 msg = "BAD REQUEST";
             }
-            else
-            {
-                msg = encrypt_SHA256(message);
-                var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
-                var name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
-                update_log(name, "User Requested Protected SHA256");
-            }
+           
             return new ObjectResult(msg);
         }
         [HttpGet]
@@ -105,16 +126,24 @@ namespace DistSysACW.Controllers
         [Authorize(Roles = "Admin,user")]
         public ActionResult Signing([FromQuery]string message)
         {
-            DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor();
-            byte[]data = decrptor.string_to_ascii(message);
-            string pKey = Singleton.SingletonPattern.Instance_3;             //calls private key instance
-            byte[] signed_data = decrptor.HashAndSignBytes(data, pKey);      //sha1
-            string hex_return = decrptor.ByteArrayToHexString(signed_data);
-
-
+            string hex_return = null;
             var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
             string name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
-            update_log(name, "User Signed a message using private key");
+            try {
+                DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor();
+                byte[] data = decrptor.string_to_ascii(message);
+                string pKey = Singleton.SingletonPattern.Instance_3;             //calls private key instance
+                byte[] signed_data = decrptor.HashAndSignBytes(data, pKey);      //sha1
+                hex_return = decrptor.ByteArrayToHexString(signed_data);            
+                update_log(name, "User Signed a message using private key");
+            }
+            catch
+            {
+                update_log(name, "User Signed message failed using private key");
+                this.Response.StatusCode = 400;
+                hex_return = "Bad Request";
+            }
+           
             return new ObjectResult(hex_return);
         }
         [HttpGet]
@@ -122,30 +151,43 @@ namespace DistSysACW.Controllers
         [Authorize(Roles ="Admin")]
         public ActionResult AddEncryptedIntegers([FromQuery]string [] encrpted_message)
         {
-            DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor(); //call decryptor class
-            AES_Functions.AES_E_D AesFunctions = new AES_Functions.AES_E_D();
-            //FORMAT = DATA + KEY + IV
-            string [] encrypted_hex = encrpted_message;
-            byte[] data = decrptor.hex2byte(encrypted_hex[0]);
-            byte[] key  = decrptor.hex2byte(encrypted_hex[1]);
-            byte[] iv   = decrptor.hex2byte(encrypted_hex[2]);
-
-            string pKey = Singleton.SingletonPattern.Instance_3; //call private key instance
-            data =decrptor.RSADecrypt(data, pKey);
-            key  =decrptor.RSADecrypt(key, pKey);
-            iv   =decrptor.RSADecrypt(iv, pKey);
-
-            //----------------from decrypted data, convert back to int and add 50 then convert back to string
-            string Original_string = Encoding.UTF8.GetString(data, 0, data.Length);
-            int Original_int = Convert.ToInt32(Original_string);
-            Original_int += 50;
-            Original_string = Convert.ToString(Original_int);
-            //--------------------ENCRYPT AND SEND-----------------------------------------------------------//
-            data = AesFunctions.EncryptStringToBytes_Aes(Original_string, key, iv);
-            string hex_data = decrptor.ByteArrayToHexString(data);
             var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
             string name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
-            update_log(name, "User Encrypted an integer message ");
+            string hex_data = null;
+            try
+            {
+                DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor(); //call decryptor class
+                AES_Functions.AES_E_D AesFunctions = new AES_Functions.AES_E_D();
+                //FORMAT = DATA + KEY + IV
+                string[] encrypted_hex = encrpted_message;
+                byte[] data = decrptor.hex2byte(encrypted_hex[0]);
+                byte[] key = decrptor.hex2byte(encrypted_hex[1]);
+                byte[] iv = decrptor.hex2byte(encrypted_hex[2]);
+
+                string pKey = Singleton.SingletonPattern.Instance_3; //call private key instance
+                data = decrptor.RSADecrypt(data, pKey);
+                key = decrptor.RSADecrypt(key, pKey);
+                iv = decrptor.RSADecrypt(iv, pKey);
+
+                //----------------from decrypted data, convert back to int and add 50 then convert back to string
+                string Original_string = Encoding.UTF8.GetString(data, 0, data.Length);
+                int Original_int = Convert.ToInt32(Original_string);
+                Original_int += 50;
+                Original_string = Convert.ToString(Original_int);
+                //--------------------ENCRYPT AND SEND-----------------------------------------------------------//
+                data = AesFunctions.EncryptStringToBytes_Aes(Original_string, key, iv);
+                hex_data = decrptor.ByteArrayToHexString(data);
+                
+                update_log(name, "User Encrypted an integer message ");
+                this.Response.StatusCode = 200;
+            }
+            catch
+            {
+                update_log(name, "User Encryption Failed ");
+                this.Response.StatusCode = 400;
+                hex_data = "Bad Request";
+            }
+            
             return new ObjectResult(hex_data);
         }
     }
