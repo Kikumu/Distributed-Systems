@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using System.Security.Claims;
 using System.Threading;
 using System.Security.Cryptography;
-
+using System.Text;
 
 namespace DistSysACW.Controllers
 {
@@ -122,8 +122,28 @@ namespace DistSysACW.Controllers
         [Authorize(Roles ="Admin")]
         public ActionResult AddEncryptedIntegers([FromQuery]string [] encrpted_message)
         {
-            string [] data = encrpted_message;
-            return new ObjectResult("notImplemented");
+            DecryptorClass.Decrptor decrptor = new DecryptorClass.Decrptor(); //call decryptor class
+            AES_Functions.AES_E_D AesFunctions = new AES_Functions.AES_E_D();
+            //FORMAT = DATA + KEY + IV
+            string [] encrypted_hex = encrpted_message;
+            byte[] data = decrptor.hex2byte(encrypted_hex[0]);
+            byte[] key  = decrptor.hex2byte(encrypted_hex[1]);
+            byte[] iv   = decrptor.hex2byte(encrypted_hex[2]);
+
+            string pKey = Singleton.SingletonPattern.Instance_3; //call private key instance
+            data =decrptor.RSADecrypt(data, pKey);
+            key  =decrptor.RSADecrypt(key, pKey);
+            iv   =decrptor.RSADecrypt(iv, pKey);
+
+            //----------------from decrypted data, convert back to int and add 50 then convert back to string
+            string Original_string = Encoding.UTF8.GetString(data, 0, data.Length);
+            int Original_int = Convert.ToInt32(Original_string);
+            Original_int += 50;
+            Original_string = Convert.ToString(Original_int);
+            //--------------------ENCRYPT AND SEND-----------------------------------------------------------//
+            data = AesFunctions.EncryptStringToBytes_Aes(Original_string, key, iv);
+            string hex_data = decrptor.ByteArrayToHexString(data);
+            return new ObjectResult(hex_data);
         }
     }
 }

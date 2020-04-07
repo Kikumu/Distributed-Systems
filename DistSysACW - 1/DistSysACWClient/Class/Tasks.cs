@@ -166,6 +166,23 @@ namespace DistSysACWClient.Class
             Console.WriteLine(resp);
             return resp;
         }
+        //----------------------------------------------------SEND ENCRYPTED MESSAGE TO SERVER----------------------------------------------------
+        public static async Task<string> TalkbackSendEncryptedData(string tst,byte[]decrypt_aes,byte[]decrypt_iv)
+        {
+            AES_functions.AES_E_D aES_Functions = new AES_functions.AES_E_D();
+            Class.Verify verify = new Class.Verify();
+            HttpRequestMessage httpRequest = new HttpRequestMessage();
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/protected/AddFifty?encrpted_message=" + tst);
+            httpRequest.Method = HttpMethod.Get;
+            httpRequest.Headers.Add("apikey", return_api());        //for authorization
+            HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
+            string resp = await httpResponse.Content.ReadAsStringAsync();
+            Console.WriteLine("Encrypted string:"+resp);
+            byte[] encrypted_data = verify.StringToByteArray(resp);
+            string aes_decrypted_data = aES_Functions.DecryptStringFromBytes_Aes(encrypted_data, decrypt_aes, decrypt_iv);
+            Console.WriteLine("Decrypted string:" + aes_decrypted_data);
+            return resp;
+        }
         //------------------------------------------------JUST RETURNS APPI KEY---------------------------------------------------------------//
         public static string return_api()
         {

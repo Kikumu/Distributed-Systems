@@ -222,7 +222,9 @@ namespace DistSysACWClient
                         string hex_aes_iv = verify.ByteArrayToHexString(encrypt_aes_iv);
                         //--------------------------------------putting it 2getha---------------------------------------------------------------------
                         string encrpted_sum = hex_data + "&encrpted_message=" + hex_aes_key + "&encrpted_message=" + hex_aes_iv;
-                        Console.WriteLine(encrpted_sum);
+                        //-------------------------------------sending it over to server----------------------------------------------------------------
+                        Class.Tasks.TalkbackSendEncryptedData(encrpted_sum, aes_key, aes_initVector).Wait();
+                        //Console.WriteLine(encrpted_sum);
                         choice = Console.ReadLine();
                     }
                    

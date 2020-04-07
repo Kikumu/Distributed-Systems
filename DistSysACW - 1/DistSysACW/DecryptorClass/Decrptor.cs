@@ -59,7 +59,7 @@ namespace DistSysACW.DecryptorClass
                 return null;
             }
         }
-        //-----------------------------------hex2byte
+        //-----------------------------------hex2byte conversion---------------------------------------------------
         public byte[] hex2byte(string hex)
         {
             hex = hex.Replace("-", "");
@@ -69,6 +69,27 @@ namespace DistSysACW.DecryptorClass
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
             return bytes;
         }
+        //--------------------------------------decrypt client data---------------------------------------------------------
+        public byte[] RSADecrypt(byte[] DataToDecrypt, string Key)
+        {
+            try
+            {
+                byte[] decryptedData;
+                RSACryptoServiceProvider rSA = new RSACryptoServiceProvider();
+                CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(rSA, Key);
+                decryptedData = rSA.Decrypt(DataToDecrypt, false);
+
+                return decryptedData;
+            }
+            catch (CryptographicException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
+        }
+
+
+
     }
 }
 
