@@ -48,15 +48,13 @@ namespace DistSysACWClient.Class
         }
 
         //-------------------------------------------------HASH AND SIGN DATA--------------------------------------------------------//
-        public byte[] HashAndSignBytes(byte[] DataToSign, string Key)
+        public byte[] EncryptWithPublicKey(byte[] DataToSign, dynamic Key)
         {
             try
             {
-                
-                RSACryptoServiceProvider rSACrypto = new RSACryptoServiceProvider();    //calls rsa instance
-                
+                RSACryptoServiceProvider rSACrypto = new RSACryptoServiceProvider();     //calls rsa instance
                 CoreExtensions.RSACryptoExtensions.FromXmlStringCore22(rSACrypto, Key);
-                return rSACrypto.SignData(DataToSign, new SHA1Managed());
+                return rSACrypto.Encrypt(DataToSign, false);
             }
             catch (CryptographicException e)
             {
@@ -65,11 +63,12 @@ namespace DistSysACWClient.Class
                 return null;
             }
         }
-        //-------------byte2hex
+        //-----------------------------------------------------byte2hex--------------------------------------------------------------
         public string ByteArrayToHexString(byte[] ba)
         {
             return BitConverter.ToString(ba);
         }
-
+        //---------------------------------------------------------AES--------------------------------------------------------------
+        
     }
 }

@@ -120,9 +120,9 @@ namespace DistSysACW.Controllers
         [HttpGet]
         [ActionName("AddFifty")]
         [Authorize(Roles ="Admin")]
-        public ActionResult AddEncryptedIntegers(string encrpted_integer,string symmetric_key,string initialization_vector)
+        public ActionResult AddEncryptedIntegers([FromQuery]string [] encrpted_message)
         {
-
+            string [] data = encrpted_message;
             return new ObjectResult("notImplemented");
         }
     }

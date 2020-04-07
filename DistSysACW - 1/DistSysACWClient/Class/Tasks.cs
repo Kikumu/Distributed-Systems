@@ -16,7 +16,7 @@ namespace DistSysACWClient.Class
         static HttpClient client = new HttpClient();
         public static string Data_verify;
         public static string pKey;
-        public static string api_key = "";
+        public static string api_key = "1";
         //-----------------------------------------------------------------------TALKBACK HELLO---------------------------------------------------------------------------//
         public static async Task<string> TalkbackHello()
         {

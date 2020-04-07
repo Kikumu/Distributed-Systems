@@ -42,18 +42,27 @@ namespace DistSysACWClient
                     manipulate = tokens[1].Remove(remover, 1);
                     string tokens1 = manipulate.Replace(",", "&num=");
                     Class.Tasks.TalkbackSort(tokens1).Wait();
-                    
                     choice = Console.ReadLine();
                 }
                
                 //-------------------------------------GETUSER-----------------------------------------------------------------//
                 else if (choice.Contains("Get") == true && choice.Contains("User") == true)
                 {
-                    Console.WriteLine("Please wait....");
                     string[] tokens = choice.Split(' ');
-                    Class.Tasks.TalkbackGetUsr(tokens[2]).Wait();
-                    user.user_name = tokens[2];
-                    choice = Console.ReadLine();
+                    if (tokens.Length < 3)
+                    {
+                        Console.WriteLine("Please enter your name and try again");
+                        choice = Console.ReadLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please wait....");
+
+                        Class.Tasks.TalkbackGetUsr(tokens[2]).Wait();
+                        user.user_name = tokens[2];
+                        choice = Console.ReadLine();
+                    }
+                   
                 }
                 //-------------------------------------POSTUSER---------------------------------------------------------------//
                 else if (choice.Contains("Post") == true && choice.Contains("User") == true)
@@ -155,6 +164,11 @@ namespace DistSysACWClient
                         Console.WriteLine("You need to do a User Post or User Set first");
                         choice = Console.ReadLine();
                     }
+                    else if ((Class.Tasks.pKey == null || Class.Tasks.pKey == ""))
+                    {
+                        Console.WriteLine("Client doesn’t yet have the public key");
+                        choice = Console.ReadLine();
+                    }
                     else
                     {
                         //REMEMBER TO GET PUBLIC KEY FIRST
@@ -166,7 +180,7 @@ namespace DistSysACWClient
                         string data2 = Class.Tasks.Data_verify; //Signed data from server
                         byte[] data2_1 = verify.StringToByteArray(data2);//Signed data from server in bytes
                         string data3 = Class.Tasks.pKey; //server public key
-                        bool confirm = verify.VerifySignedHash(data, data2_1, data3);
+                        string confirm = verify.VerifySignedHash(data, data2_1, data3);
                         Console.WriteLine("Confirmation: " + confirm);
                         choice = Console.ReadLine();
                     }
@@ -175,18 +189,43 @@ namespace DistSysACWClient
                 //-----------------------------ADD FIFTEA------------------------------------------------//
                 else if(choice.Contains("Add")==true && choice.Contains("Fifty") == true)
                 {
-                    Class.Verify verify = new Class.Verify();
-                    
-                    string[] tokens = choice.Split(' ');
-            
-                    string server_public = Class.Tasks.pKey;//server_public public key
-                    //convert original into into a byte array first
-                    byte[] data = verify.string_to_ascii(tokens[2]); //original data
-                    //sign using key
-                    byte[] signed = verify.HashAndSignBytes(data, server_public);
-                    //convert to hex
-                    string hex = verify.ByteArrayToHexString(signed);
-                    //create and encrypt symmetric key
+                    if((Class.Tasks.api_key == null || Class.Tasks.api_key == ""))
+                    {
+                        Console.WriteLine("You need to do a User Post or User Set first");
+                        choice = Console.ReadLine();
+                    }
+                    else if((Class.Tasks.pKey == null || Class.Tasks.pKey == ""))
+                    {
+                        Console.WriteLine("Client doesn’t yet have the public key" );
+                        choice = Console.ReadLine();
+                    }
+                    else
+                    {
+                        Class.Verify verify = new Class.Verify();
+                        string[] tokens = choice.Split(' ');
+                        string server_public = Class.Tasks.pKey;//server_public public key
+                                                                //convert original into into a byte array first
+                        byte[] data = verify.string_to_ascii(tokens[2]); //original data
+                        //--------------------------------------AES IV AND KEY---------------------------------------------------------------------
+                        AesCryptoServiceProvider aesProvider = new AesCryptoServiceProvider();
+                        aesProvider.GenerateKey();
+                        aesProvider.GenerateIV();
+                        byte[] aes_key = aesProvider.Key;
+                        byte[] aes_initVector = aesProvider.IV;
+                        //--------------------------------ENCRYPT using key-------------------------------------------------------------------
+                        byte[] encrpted_data = verify.EncryptWithPublicKey(data, server_public);
+                        byte[] encrypted_aes_key = verify.EncryptWithPublicKey(aes_key, server_public);
+                        byte[] encrypt_aes_iv = verify.EncryptWithPublicKey(aes_initVector, server_public);
+                        //----------------------------------------Convert to hex-------------------------------------------------------------------
+                        string hex_data = verify.ByteArrayToHexString(encrpted_data);
+                        string hex_aes_key = verify.ByteArrayToHexString(encrypted_aes_key);
+                        string hex_aes_iv = verify.ByteArrayToHexString(encrypt_aes_iv);
+                        //--------------------------------------putting it 2getha---------------------------------------------------------------------
+                        string encrpted_sum = hex_data + "&encrpted_message=" + hex_aes_key + "&encrpted_message=" + hex_aes_iv;
+                        Console.WriteLine(encrpted_sum);
+                        choice = Console.ReadLine();
+                    }
+                   
                 }
                 //---------------------------CHANGE ROLE------------------------------------------------------//
                 else if(choice.Contains("User")==true && choice.Contains("Role") == true)
