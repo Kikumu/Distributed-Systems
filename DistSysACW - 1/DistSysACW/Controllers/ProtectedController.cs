@@ -143,6 +143,9 @@ namespace DistSysACW.Controllers
             //--------------------ENCRYPT AND SEND-----------------------------------------------------------//
             data = AesFunctions.EncryptStringToBytes_Aes(Original_string, key, iv);
             string hex_data = decrptor.ByteArrayToHexString(data);
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            string name = identity.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+            update_log(name, "User Encrypted an integer message ");
             return new ObjectResult(hex_data);
         }
     }
