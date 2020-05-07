@@ -21,7 +21,8 @@ namespace DistSysACWClient
             string choice = "";
             Console.WriteLine("Hello. What would you like to do?");
             choice = Console.ReadLine();
-
+            string[] choice_length = choice.Split(' ');
+            int val = choice_length.Length;
             while (choice.Contains("Exit") == false)
             {
                 //----------------------------------------TALKBACKHELLO-----------------------------------------------------------//
@@ -37,7 +38,9 @@ namespace DistSysACWClient
                 {
                     Console.WriteLine("Please wait....");
                     string manipulate = "";
+                    
                     string[] tokens = choice.Split('[');
+                    val = tokens.Length;
                     int remover = tokens[1].LastIndexOf(']');
                     manipulate = tokens[1].Remove(remover, 1);
                     string tokens1 = manipulate.Replace(",", "&num=");
@@ -49,6 +52,7 @@ namespace DistSysACWClient
                 else if (choice.Contains("Get") == true && choice.Contains("User") == true)
                 {
                     string[] tokens = choice.Split(' ');
+                    val = tokens.Length;
                     if (tokens.Length < 3)
                     {
                         Console.WriteLine("Please enter your name and try again");
@@ -57,7 +61,7 @@ namespace DistSysACWClient
                     else
                     {
                         Console.WriteLine("Please wait....");
-
+                        val = tokens.Length;
                         Class.Tasks.TalkbackGetUsr(tokens[2]).Wait();
                         user.user_name = tokens[2];
                         choice = Console.ReadLine();
@@ -67,11 +71,23 @@ namespace DistSysACWClient
                 //-------------------------------------POSTUSER---------------------------------------------------------------//
                 else if (choice.Contains("Post") == true && choice.Contains("User") == true)
                 {
+
                     Console.WriteLine("Please wait....");
-                    string json = user.user_name;
-                    Class.Tasks.TalkbackPostGetUsr(json).Wait();
-                    user.api_key = Class.Tasks.return_api();
-                    choice = Console.ReadLine();
+                    string[] tokens = choice.Split(' ');
+                    val = tokens.Length;
+                    if (tokens.Length < 3)
+                    {
+                        Console.WriteLine("Please enter your name and try again");
+                        choice = Console.ReadLine();
+                    }
+                    else {
+                        string data = tokens[2];
+                        val = tokens.Length;
+                        Class.Tasks.TalkbackPostGetUsr(data).Wait();
+                        user.api_key = Class.Tasks.return_api();
+                        choice = Console.ReadLine();
+                    }
+                       
                 }
                 //------------------------------------DELETEUSER-------------------------------------------------------------//
                 else if (choice.Contains("Delete") == true && choice.Contains("User") == true)
@@ -84,7 +100,9 @@ namespace DistSysACWClient
                     else
                     {
                         Console.WriteLine("Please wait....");
-                        user.user_name = "amples";
+                        string[] tokens = choice.Split(' ');
+                        val = tokens.Length;
+                        user.user_name = tokens[2];
                         string json = user.user_name;
                         Class.Tasks.TalkbackDeleteUser(json).Wait();
                         choice = Console.ReadLine();
@@ -92,7 +110,8 @@ namespace DistSysACWClient
                    
                 }
                 //-----------------------------------PROTECTED HELLO--------------------------------------------------------//
-                else if (choice.Contains("Protected") == true && choice.Contains("Hello") == true)
+                //
+                else if (choice.Contains("Protected") == true && choice.Contains("Hello") == true && choice.Split(' ').Length < 3)
                 {
                     if (Class.Tasks.api_key == null || Class.Tasks.api_key == "")
                     {
@@ -110,15 +129,22 @@ namespace DistSysACWClient
                 //-----------------------------------PROTECTEDSHA1----------------------------------------------------------//
                 else if (choice.Contains("Protected") == true && choice.Contains("SHA1") == true)
                 {
+                    string[] tokens = choice.Split(' ');
+                    val = tokens.Length;
                     if (Class.Tasks.api_key == null || Class.Tasks.api_key == "")
                     {
                         Console.WriteLine("You need to do a User Post or User Set first");
                         choice = Console.ReadLine();
                     }
+                    else if(tokens.Length < 3)
+                    {
+                        Console.WriteLine("Please re-type string and enter a message to encrypt");
+                        choice = Console.ReadLine();
+                    }
                     else
                     {
+                        val = tokens.Length;
                         Console.WriteLine("Please wait....");
-                        string[] tokens = choice.Split(' ');
                         Class.Tasks.TalkbackProtectedSHA1(tokens[2]).Wait();
                         choice = Console.ReadLine();
                     }
@@ -126,15 +152,21 @@ namespace DistSysACWClient
                 //------------------------------protected256---------------------------------------------------------------//
                 else if (choice.Contains("Protected") == true && choice.Contains("SHA256") == true)
                 {
+                    string[] tokens = choice.Split(' ');
                     if (Class.Tasks.api_key == null || Class.Tasks.api_key == "")
                     {
                         Console.WriteLine("You need to do a User Post or User Set first");
                         choice = Console.ReadLine();
                     }
+                    else if (tokens.Length < 3)
+                    {
+                        Console.WriteLine("Please re-type string and enter a message to encrypt");
+                        choice = Console.ReadLine();
+                    }
                     else
                     {
+                        val = tokens.Length;
                         Console.WriteLine("Please wait....");
-                        string[] tokens = choice.Split(' ');
                         Class.Tasks.TalkbackProtectedSHA256(tokens[2]).Wait();
                         choice = Console.ReadLine();
                     }
@@ -150,6 +182,7 @@ namespace DistSysACWClient
                     }
                     else
                     {
+
                         Console.WriteLine("Please wait....");
                         Class.Tasks.TalkbackProtectedPublic_key().Wait();
                         choice = Console.ReadLine();
@@ -159,21 +192,30 @@ namespace DistSysACWClient
                 //--------------------------------PRIVATE SIGNED--------------------------------------//
                 else if(choice.Contains("Protected")==true && choice.Contains("Sign") == true)
                 {
+                    string[] tokens = choice.Split(' ');
                     if (Class.Tasks.api_key == null || Class.Tasks.api_key == "")
                     {
+                        val = tokens.Length;
                         Console.WriteLine("You need to do a User Post or User Set first");
                         choice = Console.ReadLine();
                     }
                     else if ((Class.Tasks.pKey == null || Class.Tasks.pKey == ""))
                     {
+                        val = tokens.Length;
                         Console.WriteLine("Client doesn’t yet have the public key");
+                        choice = Console.ReadLine();
+                    }
+                    else if (tokens.Length < 3)
+                    {
+                        val = tokens.Length;
+                        Console.WriteLine("Please re-type string and enter a message to sign");
                         choice = Console.ReadLine();
                     }
                     else
                     {
+                        val = tokens.Length;
                         //REMEMBER TO GET PUBLIC KEY FIRST
                         Console.WriteLine("Please wait....");
-                        string[] tokens = choice.Split(' ');
                         Class.Verify verify = new Class.Verify();
                         Class.Tasks.TalkbackProtectedPrivate_key(tokens[2]).Wait();
                         byte[] data = verify.string_to_ascii(tokens[2]); //original data
@@ -181,7 +223,7 @@ namespace DistSysACWClient
                         byte[] data2_1 = verify.StringToByteArray(data2);//Signed data from server in bytes
                         string data3 = Class.Tasks.pKey; //server public key
                         string confirm = verify.VerifySignedHash(data, data2_1, data3);
-                        Console.WriteLine("Confirmation: " + confirm);
+                        //Console.WriteLine("Confirmation: " + confirm);
                         choice = Console.ReadLine();
                     }
                    
@@ -189,7 +231,9 @@ namespace DistSysACWClient
                 //-----------------------------ADD FIFTEA------------------------------------------------//
                 else if(choice.Contains("Add")==true && choice.Contains("Fifty") == true)
                 {
-                    if((Class.Tasks.api_key == null || Class.Tasks.api_key == ""))
+                    string[] tokens = choice.Split(' ');
+                    val = tokens.Length;
+                    if ((Class.Tasks.api_key == null || Class.Tasks.api_key == ""))
                     {
                         Console.WriteLine("You need to do a User Post or User Set first");
                         choice = Console.ReadLine();
@@ -199,10 +243,15 @@ namespace DistSysACWClient
                         Console.WriteLine("Client doesn’t yet have the public key" );
                         choice = Console.ReadLine();
                     }
+                    else if (tokens.Length < 3)
+                    {
+                        Console.WriteLine("Please re-type string and enter a message to encrypt");
+                        choice = Console.ReadLine();
+                    }
                     else
                     {
                         Class.Verify verify = new Class.Verify();
-                        string[] tokens = choice.Split(' ');
+                        val = tokens.Length;
                         string server_public = Class.Tasks.pKey;//server_public public key
                                                                 //convert original into into a byte array first
                         byte[] data = verify.string_to_ascii(tokens[2]); //original data
@@ -234,6 +283,7 @@ namespace DistSysACWClient
                 {
                     string username = null;
                     string role = null;
+                    string[] tokens = choice.Split(' ');
 
                     try
                     {
@@ -242,9 +292,14 @@ namespace DistSysACWClient
                             Console.WriteLine("You need to do a User Post or User Set first");
                             choice = Console.ReadLine();
                         }
+                        else if (tokens.Length < 3)
+                        {
+                            Console.WriteLine("Please re-type string and enter a role");
+                            choice = Console.ReadLine();
+                        }
                         else
                         {
-                            string[] tokens = choice.Split(' ');
+                            
                             username = tokens[2];
                             role = tokens[3];
                             Class.Tasks.TalkbackChangeRole(username, role).Wait();

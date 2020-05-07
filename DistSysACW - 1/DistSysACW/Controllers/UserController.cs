@@ -50,9 +50,6 @@ namespace DistSysACW.Controllers
             //string temp_1 = value;
             string temp = "";
             temp = Convert.ToString(add_user(value));
-            //need to "clean" value due to parenthesis and stuff in the JSON string
-            //assuming its "cleaned"
-            //post_user_temp = value;
             if ((temp == "Empty")|| (temp == "False - User Does Not Exist! Did you mean to do a POST to create a new user?"))
             {
                 this.Response.StatusCode = 400;
@@ -131,7 +128,7 @@ namespace DistSysACW.Controllers
         
         [HttpDelete]
         [ActionName("removeuser")]
-        [Authorize(Roles = "Admin,user")]
+        [Authorize(Roles = "Admin")]
         //------------------------------- IMPLEMENTED(delete user(LOL its supposed to be a delete request))-----------------------------------------//
         public ActionResult delete_user_data([FromQuery]string username)
         {

@@ -66,8 +66,16 @@ namespace DistSysACWClient.Class
             httpRequest.Content = stringContent;
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
-            api_key = resp;
-            Console.WriteLine("Got API Key");
+            if (resp == "Oops. Make sure your body contains a string with your username and your Content-Type is Content-Type:application/json" || resp== "Oops. This username is already in use. Please try again with a new username.")
+            {
+                Console.WriteLine(resp);
+            }
+            else
+            {
+                api_key = resp;
+                resp = "Got API Key";
+                Console.WriteLine(resp);
+            }
             return resp;
 
         }
@@ -75,7 +83,7 @@ namespace DistSysACWClient.Class
         public static async Task<string>TalkbackDeleteUser(string tst)
         {
             HttpRequestMessage httpRequest = new HttpRequestMessage();
-            httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/DeleteUser?username="+tst);
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/removeuser?username="+tst);
             httpRequest.Method = HttpMethod.Delete;
             httpRequest.Headers.Add("apikey", return_api());      //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
@@ -143,7 +151,6 @@ namespace DistSysACWClient.Class
             string resp = await httpResponse.Content.ReadAsStringAsync();
             if (resp != "Bad Request")
             {
-                Console.WriteLine(resp);
                 Console.WriteLine("Message successfully signed");
             }  
             else

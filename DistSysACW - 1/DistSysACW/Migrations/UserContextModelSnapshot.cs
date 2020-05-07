@@ -58,6 +58,8 @@ namespace DistSysACW.Migrations
                     b.HasOne("DistSysACW.Models.User")
                         .WithMany("Logs")
                         .HasForeignKey("Userapi_key");
+                        //.OnDelete(DeleteBehavior.Cascade);
+                        
                 });
 #pragma warning restore 612, 618
         }
