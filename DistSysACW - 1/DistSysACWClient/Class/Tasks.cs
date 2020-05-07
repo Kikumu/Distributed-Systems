@@ -48,7 +48,7 @@ namespace DistSysACWClient.Class
         public static async Task<string> TalkbackGetUsr(string tst)
         {
             HttpRequestMessage httpRequest = new HttpRequestMessage();
-            httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/new?name=" + tst);
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/new?username=" + tst);
             httpRequest.Method = HttpMethod.Get;
             httpRequest.Headers.Add("apikey", return_api());   //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
@@ -67,7 +67,7 @@ namespace DistSysACWClient.Class
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
             string resp = await httpResponse.Content.ReadAsStringAsync();
             api_key = resp;
-            Console.WriteLine(resp);
+            Console.WriteLine("Got API Key");
             return resp;
 
         }
@@ -75,7 +75,7 @@ namespace DistSysACWClient.Class
         public static async Task<string>TalkbackDeleteUser(string tst)
         {
             HttpRequestMessage httpRequest = new HttpRequestMessage();
-            httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/DeleteUser?name="+tst);
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/user/DeleteUser?username="+tst);
             httpRequest.Method = HttpMethod.Delete;
             httpRequest.Headers.Add("apikey", return_api());      //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
@@ -123,7 +123,7 @@ namespace DistSysACWClient.Class
         public static async Task<string> TalkbackProtectedPublic_key()
         {
             HttpRequestMessage httpRequest = new HttpRequestMessage();
-            httpRequest.RequestUri = new Uri("https://localhost:44307/api/protected/GetPublicey");
+            httpRequest.RequestUri = new Uri("https://localhost:44307/api/protected/GetPublickey");
             httpRequest.Method = HttpMethod.Get;
             httpRequest.Headers.Add("apikey", return_api());      //for authorization
             HttpResponseMessage httpResponse = await client.SendAsync(httpRequest);
@@ -185,10 +185,10 @@ namespace DistSysACWClient.Class
             string resp = await httpResponse.Content.ReadAsStringAsync();
             if (resp != "Bad Request")
             {
-                Console.WriteLine("Encrypted string:" + resp);
+                //Console.WriteLine("Encrypted string:" + resp);
                 byte[] encrypted_data = verify.StringToByteArray(resp);
                 string aes_decrypted_data = aES_Functions.DecryptStringFromBytes_Aes(encrypted_data, decrypt_aes, decrypt_iv);
-                Console.WriteLine("Decrypted string:" + aes_decrypted_data);
+                Console.WriteLine("Decrypted integer which should be " + aes_decrypted_data+ " in this example");
             }
             else
                 Console.WriteLine("An error occurred!");

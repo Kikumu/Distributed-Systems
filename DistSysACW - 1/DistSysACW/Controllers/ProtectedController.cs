@@ -109,7 +109,7 @@ namespace DistSysACW.Controllers
             return new ObjectResult(msg);
         }
         [HttpGet]
-        [ActionName("GetPublicey")]
+        [ActionName("GetPublickey")]
         [Authorize(Roles = "Admin,user")]
         public ActionResult GetPublicKey()
         {

@@ -4,7 +4,9 @@ C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\bin\Debug\netcoreapp2.2\DistSysACWClient.dll
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\bin\Debug\netcoreapp2.2\DistSysACWClient.pdb
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\obj\Debug\netcoreapp2.2\DistSysACWClient.csprojAssemblyReference.cache
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\obj\Debug\netcoreapp2.2\DistSysACWClient.csproj.CoreCompileInputs.cache
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\obj\Debug\netcoreapp2.2\DistSysACWClient.AssemblyInfoInputs.cache
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\obj\Debug\netcoreapp2.2\DistSysACWClient.AssemblyInfo.cs
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\obj\Debug\netcoreapp2.2\DistSysACWClient.dll
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\obj\Debug\netcoreapp2.2\DistSysACWClient.pdb
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\obj\Debug\netcoreapp2.2\DistSysACWClient.genruntimeconfig.cache

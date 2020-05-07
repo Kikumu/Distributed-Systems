@@ -32,12 +32,12 @@ namespace DistSysACW.Controllers
         //--------------------------------------------------------------------------------SEARCH DB FOR NAME--------------------------------------------//
         [HttpGet]
         [ActionName("new")]
-        public string New([FromQuery]string name) //gets name value from get request and checks database if user exists
+        public string New([FromQuery]string username) //gets name value from get request and checks database if user exists
         {
-            name = Convert.ToString(search_username(name));
+            username = Convert.ToString(search_username(username));
             obtain_keys();
             //convert to JSON string so that client can accept
-            return name;
+            return username;
         }
 
         // POST: api/User
@@ -53,7 +53,7 @@ namespace DistSysACW.Controllers
             //need to "clean" value due to parenthesis and stuff in the JSON string
             //assuming its "cleaned"
             //post_user_temp = value;
-            if (temp == "Empty")
+            if ((temp == "Empty")|| (temp == "False - User Does Not Exist! Did you mean to do a POST to create a new user?"))
             {
                 this.Response.StatusCode = 400;
                 temp = ("Oops. Make sure your body contains a string with your username and your Content-Type is Content-Type:application/json");
@@ -130,13 +130,13 @@ namespace DistSysACW.Controllers
         }
         
         [HttpDelete]
-        [ActionName("DeleteUser")]
+        [ActionName("removeuser")]
         [Authorize(Roles = "Admin,user")]
         //------------------------------- IMPLEMENTED(delete user(LOL its supposed to be a delete request))-----------------------------------------//
-        public ActionResult delete_user_data([FromQuery]string name)
+        public ActionResult delete_user_data([FromQuery]string username)
         {
-            string temp = name;
-            temp = delete_user(name);
+            string temp = username;
+            temp = delete_user(username);
             if (temp == "deleted")
                 temp = "True";
             else

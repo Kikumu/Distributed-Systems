@@ -177,6 +177,10 @@ namespace DistSysACW.Controllers
                 }
                 // rslt = "Saved";
             }
+            if (rslt == "Empty")
+            {
+                rslt = "False - User Does Not Exist! Did you mean to do a POST to create a new user?";
+            }
             return rslt;
         }
 
@@ -212,7 +216,6 @@ namespace DistSysACW.Controllers
         //----------------------------------DELETE ROLE FUNCTION. WORKS BUT PARTIALLY IMPLEMENTED------------------------------------------------------------------//
         public string delete_user(string name)
         {
-            // db.Database.Log = Console.WriteLine;
             var _cntxt = new Models.UserContext();
             var t_name = _cntxt.Users.Where(u => u.user_name == name).First();
             _cntxt.Users.Remove(t_name);
