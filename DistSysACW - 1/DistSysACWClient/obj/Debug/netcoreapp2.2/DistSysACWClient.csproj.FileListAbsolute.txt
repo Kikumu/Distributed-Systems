@@ -9,3 +9,4 @@ C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\obj\Debug\netcoreapp2.2\DistSysACWClient.dll
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\obj\Debug\netcoreapp2.2\DistSysACWClient.pdb
 C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\obj\Debug\netcoreapp2.2\DistSysACWClient.genruntimeconfig.cache
+C:\Users\scowt\Desktop\Semester2\DistributedACW\DistSysACW - 1\DistSysACWClient\obj\Debug\netcoreapp2.2\DistSysACWClient.csprojAssemblyReference.cache

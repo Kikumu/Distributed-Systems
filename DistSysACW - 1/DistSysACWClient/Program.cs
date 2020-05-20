@@ -317,7 +317,7 @@ namespace DistSysACWClient
                 {
                     try {
                         string[] tokens = choice.Split(' ');
-                        Class.Tasks.api_key = tokens[2];
+                        Class.Tasks.api_key = tokens[3];
                         Console.WriteLine("Stored");
                         //tokens[2]
                     }

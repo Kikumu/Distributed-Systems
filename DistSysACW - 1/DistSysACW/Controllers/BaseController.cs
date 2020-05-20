@@ -216,11 +216,20 @@ namespace DistSysACW.Controllers
         //----------------------------------DELETE ROLE FUNCTION. WORKS BUT PARTIALLY IMPLEMENTED------------------------------------------------------------------//
         public string delete_user(string name)
         {
-            var _cntxt = new Models.UserContext();
-            var t_name = _cntxt.Users.Where(u => u.user_name == name).First();
-            _cntxt.Users.Remove(t_name);
-            _cntxt.SaveChanges();
-            return "deleted";
+            string feedback;
+            try
+            {
+                var _cntxt = new Models.UserContext();
+                var t_name = _cntxt.Users.Where(u => u.user_name == name).First();
+                _cntxt.Users.Remove(t_name);
+                _cntxt.SaveChanges();
+                feedback =  "deleted";
+            }
+            catch
+            {
+                feedback = "An error occurred";
+            }
+            return feedback;
         }
         //-------------------------------update log---------------------------------------
         public void update_log(string name, string action)
